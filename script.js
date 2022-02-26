@@ -105,6 +105,23 @@ function shiftOneTileUp(row, col) {
     }
 }
 
+function shiftTilesDown() {
+    for (col = 4; col >= 0; col--) {
+        for (row = 4; row >= 0; row--) {
+            if (TILES[row][col] != null) {
+                shiftOneTileDown(row, col);
+            }
+        }
+    }
+}
+function shiftOneTileDown(row, col) {
+    column = getColumnOfTiles(col)
+    downmostEmptyRow = reverseIndexOf(column, null);
+    if (downmostEmptyRow != -1 && downmostEmptyRow > row) {
+        moveTileToLocation(row, col, downmostEmptyRow, col);
+    }
+}
+
 function moveTileToLocation(oldRow, oldCol, newRow, newCol) {
     tile = TILES[oldRow][oldCol];
     TILES[oldRow][oldCol] = null;
@@ -130,7 +147,7 @@ window.onload = function(){
                 shiftTilesUp();
                 break;
             case "ArrowDown":
-                // Down pressed
+                shiftTilesDown();
                 break;
         }
     });
