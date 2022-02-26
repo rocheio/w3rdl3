@@ -9,19 +9,21 @@
     width: 2rem;
 }
 .grid-container {
-    height: 13rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 12rem;
     width: 12rem;
+    padding: 0.4rem;
     background-color: grey;
 }
 .grid-row {
-    height: 2.3rem;
-    width: 11.6rem;
-    padding: 0.1rem;
+    display: flex;
+    justify-content: space-between;
 }
 .grid-cell {
-    float: left;
     height: 2rem;
     width: 2rem;
-    margin: 0.1rem;
     background-color: lightgrey;
+    border: 1px solid black;
 }
