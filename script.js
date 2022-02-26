@@ -118,17 +118,9 @@ function shiftTilesLeft() {
 }
 function shiftSingleTileLeft(row, col) {
     if (col == 0) return;
-    rowValues = TILES[row];
-
-    // Prefer moving to empty space
-    leftmostEmptyCol = rowValues.indexOf(null);
-    if (leftmostEmptyCol != -1 && leftmostEmptyCol < col) {
-        moveTileToLocation(row, col, row, leftmostEmptyCol);
-        return;
-    }
-
-    // Combine with adjacent tile if unable to move
-    if (tilesMayCombine(row, col, row, col-1)) {
+    if (TILES[row][col-1] == null) {
+        moveTileToLocation(row, col, row, col-1);
+    } else if (tilesMayCombine(row, col, row, col-1)) {
         combineTiles(row, col, row, col-1);
     }
 }
@@ -144,17 +136,9 @@ function shiftTilesRight() {
 }
 function shiftSingleTileRight(row, col) {
     if (col == 4) return;
-    rowValues = TILES[row];
-
-    // Prefer moving to empty space
-    rightmostEmptyCol = reverseIndexOf(rowValues, null);
-    if (rightmostEmptyCol != -1 && rightmostEmptyCol > col) {
-        moveTileToLocation(row, col, row, rightmostEmptyCol);
-        return;
-    }
-
-    // Combine with adjacent tile if unable to move
-    if (tilesMayCombine(row, col, row, col+1)) {
+    if (TILES[row][col+1] == null) {
+        moveTileToLocation(row, col, row, col+1);
+    } else if (tilesMayCombine(row, col, row, col+1)) {
         combineTiles(row, col, row, col+1);
     }
 }
@@ -171,16 +155,9 @@ function shiftTilesUp() {
 function shiftSingleTileUp(row, col) {
     if (row == 0) return;
     columnValues = getColumnOfTiles(col)
-
-    // Prefer moving to empty space
-    upmostEmptyRow = columnValues.indexOf(null);
-    if (upmostEmptyRow != -1 && upmostEmptyRow < row) {
-        moveTileToLocation(row, col, upmostEmptyRow, col);
-        return;
-    }
-
-    // Combine with adjacent tile if unable to move
-    if (tilesMayCombine(row, col, row-1, col)) {
+    if (columnValues[row-1] == null) {
+        moveTileToLocation(row, col, row-1, col);
+    } else if (tilesMayCombine(row, col, row-1, col)) {
         combineTiles(row, col, row-1, col);
     }
 }
@@ -197,16 +174,9 @@ function shiftTilesDown() {
 function shiftSingleTileDown(row, col) {
     if (row == 4) return;
     columnValues = getColumnOfTiles(col)
-
-    // Prefer moving to empty space
-    downmostEmptyRow = reverseIndexOf(columnValues, null);
-    if (downmostEmptyRow != -1 && downmostEmptyRow > row) {
-        moveTileToLocation(row, col, downmostEmptyRow, col);
-        return;
-    }
-
-    // Combine with adjacent tile if unable to move
-    if (tilesMayCombine(row, col, row+1, col)) {
+    if (columnValues[row+1] == null) {
+        moveTileToLocation(row, col, row+1, col);
+    } else if (tilesMayCombine(row, col, row+1, col)) {
         combineTiles(row, col, row+1, col);
     }
 }
