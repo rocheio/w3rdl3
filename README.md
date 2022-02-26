@@ -1,4 +1,4 @@
-# W3rdle
+# w3rdl3
 
 Wordle and Threes combined. Because two viral games are better than one.
 
