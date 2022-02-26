@@ -32,6 +32,9 @@ function addLetters(l1, l2) {
     if (cc1 + cc2 > 26) return null;
     return String.fromCharCode(cc1 + cc2 + charCodeOffset);
 }
+function isLetter(value) {
+    return value.length === 1 && value.match(/[a-z]/i);
+}
 
 function newTileGrid() {
     grid = new Array(5);
@@ -318,28 +321,43 @@ function preventDefaultKeydownActions() {
     }, false);
 }
 
-function bindAppKeyupEvents() {
+function bindAppKeyEvents() {
     window.addEventListener('keyup', function(event) {
-        switch (event.key) {
-            case "ArrowLeft":
-                shiftTilesLeft();
-                triggerPostActionSequence();
-                break;
-            case "ArrowRight":
-                shiftTilesRight();
-                triggerPostActionSequence();
-                break;
-            case "ArrowUp":
-                shiftTilesUp();
-                triggerPostActionSequence();
-                break;
-            case "ArrowDown":
-                shiftTilesDown();
-                triggerPostActionSequence();
-                break;
-            case "Enter":
-                toggleWordInputField();
-                break;
+        if (event.key == "ArrowLeft") {
+            shiftTilesLeft();
+            triggerPostActionSequence();
+            return;
+        }
+        if (event.key == "ArrowRight") {
+            shiftTilesRight();
+            triggerPostActionSequence();
+            return;
+        }
+        if (event.key == "ArrowUp") {
+            shiftTilesUp();
+            triggerPostActionSequence();
+            return;
+        }
+        if (event.key == "ArrowDown") {
+            shiftTilesDown();
+            triggerPostActionSequence();
+            return;
+        }
+        if (event.key == "Enter") {
+            toggleWordInputField();
+            return;
+        }
+    });
+
+    // Detect alphabet keys typed when word input is not active
+    // NOTE: Detect at the full PRESS level to avoid i.e. "ctrl+r" reloads from inputting
+    window.addEventListener('keypress', function(event) {
+        if (isLetter(event.key)) {
+            inputField = document.getElementById("word-input");
+            if (document.activeElement != inputField) {
+                inputField.focus()
+                inputField.value += event.key
+            }
         }
     });
 }
@@ -370,7 +388,7 @@ function hideAllModals() {
 
 window.onload = function(){
     preventDefaultKeydownActions();
-    bindAppKeyupEvents();
+    bindAppKeyEvents();
     document.getElementById("button-new-game").addEventListener("click", function(){
         resetGameStateToStartingPoint();
     });
