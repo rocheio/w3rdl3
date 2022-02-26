@@ -259,7 +259,9 @@ function toggleWordInputField() {
     // Normalize the WORD so we only need to check upper case
     word = elem.value.trim().toUpperCase();
 
-    if (validWordOnGameBoard(word)) {
+    if (word.length == 5
+            && validWordOnGameBoard(word)
+            && FIVE_LETTER_WORDS.includes(word.toLowerCase())) {
         console.log(`Valid 5-letter word in game board: '${word}'`);
         // TODO: Add points, display word in a running list somewhere?
         return;
