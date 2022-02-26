@@ -211,6 +211,18 @@ function shiftTilesDown() {
 }
 function shiftOneTileDown(row, col) {
     columnValues = getColumnOfTiles(col)
+    
+    // Check if nearest non-empty tile (the one THIS tile would "hit") may combine
+    collidesAt = 5;
+    for (collidesAt = row-1; collidesAt < 5; collidesAt++) {
+        if (columnValues[collidesAt] != null) {
+            if (tilesMayCombine(row, col, collidesAt, col)) {
+                combineTiles(row, col, collidesAt, col);
+                return;
+            }
+            break;
+        }
+    }
 
     // No combination available, move to furthest empty location
     downmostEmptyRow = reverseIndexOf(columnValues, null);
