@@ -1,6 +1,11 @@
 const SPACE_BETWEEN_TILES = 0.4;
 const TILE_SIZE = 2.1;
 
+// The game space is a 5x5 grid of tiles that can not overlap
+// Values are `null` when no tile exists or a <div> element
+// This global is initialized on each window load
+var TILES = []
+
 // General utility functions
 function randIntBetween(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -20,8 +25,6 @@ function addLetters(l1, l2) {
     return String.fromCharCode(cc1 + cc2 + charCodeOffset);
 }
 
-// The game space is a 5x5 grid of tiles that can not overlap
-// Values are `null` when no tile exists or a <div> element
 function initTileGrid() {
     grid = new Array(5);
     for (var row = 0; row < 5; row++) {
@@ -32,7 +35,6 @@ function initTileGrid() {
     }
     return grid;
 }
-var TILES = initTileGrid();
 
 function getColumnOfTiles(index) {
     // Return a virtual column of tiles from the current game state
@@ -234,20 +236,60 @@ function toggleWordInputField() {
         return;
     }
 
-    if (validWordOnGameBoard(elem.value)) {
-        console.log(`Valid 5-letter word in game board: '${elem.value}'`);
+    // Normalize the WORD so we only need to check upper case
+    word = elem.value.trim().toUpperCase();
+
+    if (validWordOnGameBoard(word)) {
+        console.log(`Valid 5-letter word in game board: '${word}'`);
         // TODO: Add points, display word in a running list somewhere?
         return;
     }
 
-    console.log(`Invalid 5-letter word in game board: '${elem.value}'`);
+    console.log(`Invalid 5-letter word in game board: '${word}'`);
     elem.value = '';
     elem.blur();
 }
 
+function letterCountsOnGameBoard() {
+    // Return a map of all letters on the game board to their counts
+    var allLetters = {};
+    for (var row = 0; row < 5; row++) {
+        for (var col = 0; col < 5; col++) {
+            if (TILES[row][col] == null) continue;
+
+            letter = TILES[row][col].innerHTML;
+            if (allLetters[letter] == undefined) {
+                allLetters[letter] = 0;
+            }
+            allLetters[letter] += 1;
+        }
+    }
+    return allLetters;
+}
+
+function letterCountsOfWord(word) {
+    var allLetters = {};
+    for (var i = 0; i < word.length; i++) {
+        letter = word[i];
+        if (allLetters[letter] == undefined) {
+            allLetters[letter] = 0;
+        }
+        allLetters[letter] += 1;
+    }
+    return allLetters;
+}
+
 function validWordOnGameBoard(word) {
     // Return True if word is 5 letters, in the dictionary, and contiguous on the board
-    return false;
+    var allLetters = letterCountsOnGameBoard();
+    var wordLetters = letterCountsOfWord(word);
+    console.log(`All letters on board: ${Object.keys(allLetters)} vs input: ${Object.keys(wordLetters)}`);
+    for (letter in wordLetters) {
+        if (allLetters[letter] == undefined || wordLetters[letter] > allLetters[letter]) {
+            return false;
+        }
+    }
+    return true;
 }
 
 window.onload = function(){
@@ -274,5 +316,6 @@ window.onload = function(){
                 break;
         }
     });
+    TILES = initTileGrid();
     spawnNewTileAtRandomEmptyLocation();
 }
