@@ -71,11 +71,18 @@ function setTileTransform(tile, row, col) {
 function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {
     // Return true if a two tiles may be legally combined
     // console.log(`tile (${row}, ${col}) checking at (${row}, ${collidesAt})`);
-    tileSrc = TILES[rowSrc][colSrc];
-    tileDest = TILES[rowDest][colDest];
-    if (tileSrc.innerHTML == "A" && tileDest.innerHTML == "A") return false;
-    if (tileSrc.innerHTML == "B" && tileDest.innerHTML == "B") return false;
-    if (addLetters(tileSrc.innerHTML, tileDest.innerHTML) == null) return false;
+    l1 = TILES[rowSrc][colSrc].innerHTML;
+    l2 = TILES[rowDest][colDest].innerHTML;
+    
+    // `A` tiles do not combine together
+    if (l1 == "A" && l2 == "A") return false;
+    // `B` tiles do not combine together
+    if (l1 == "B" && l2 == "B") return false;
+    // Higher-order tiles do not combine together
+    // TODO: SHOULD we allow higher value letters to combine?
+    if (l1 != "A" && l1 != "B" && l2 != "A" && l2 != "B") return false;
+    // Tiles that sum to more than `Z` cannot be combined
+    if (addLetters(l1, l2) == null) return false;
     // TODO: If either tile has been combined already return false
     // (temp set in memory of `tilesCombinedThisTurn` that resets in post-op)
     return true;
@@ -83,7 +90,7 @@ function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {
 
 function combineTiles(rowSrc, colSrc, rowDest, colDest) {
     // Combine a source tile with a destination tile at the destination
-    console.log(`tile (${row}, ${col}) combining at (${row}, ${collidesAt})`);
+    // console.log(`tile (${row}, ${col}) combining at (${row}, ${collidesAt})`);
     tileSrc = TILES[rowSrc][colSrc];
     tileDest = TILES[rowDest][colDest];
 
