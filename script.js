@@ -292,22 +292,35 @@ function validWordOnGameBoard(word) {
     return true;
 }
 
-window.onload = function(){
+function preventDefaultKeydownActions() {
+    // Prevents scrolling actions of arrow keys in this app
+    window.addEventListener("keydown", function(e) {
+        if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+            e.preventDefault();
+        }
+    }, false);
+}
+
+function bindAppKeyupEvents() {
     window.addEventListener('keyup', function(event) {
         switch (event.key) {
             case "ArrowLeft":
+                event.preventDefault();
                 shiftTilesLeft();
                 triggerPostActionSequence();
                 break;
             case "ArrowRight":
+                event.preventDefault();
                 shiftTilesRight();
                 triggerPostActionSequence();
                 break;
             case "ArrowUp":
+                event.preventDefault();
                 shiftTilesUp();
                 triggerPostActionSequence();
                 break;
             case "ArrowDown":
+                event.preventDefault();
                 shiftTilesDown();
                 triggerPostActionSequence();
                 break;
@@ -316,6 +329,11 @@ window.onload = function(){
                 break;
         }
     });
+}
+
+window.onload = function(){
+    preventDefaultKeydownActions();
+    bindAppKeyupEvents();
     TILES = initTileGrid();
     spawnNewTileAtRandomEmptyLocation();
 }

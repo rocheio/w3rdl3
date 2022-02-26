@@ -1,4 +1,4 @@
-ul { 
+ul {
     padding-left: 1rem;
 }
 .title {
@@ -52,4 +52,9 @@ ul {
 }
 .instructions {
     font-size: 0.6rem;
+}
+.stats-container {
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: space-between;
 }
