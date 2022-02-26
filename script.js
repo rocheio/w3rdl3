@@ -76,6 +76,21 @@ function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {
 function combineTiles(rowSrc, colSrc, rowDest, colDest) {
     // Combine a source tile with a destination tile at the destination
     console.log(`tile (${row}, ${col}) combining at (${row}, ${collidesAt})`);
+    tileSrc = TILES[rowSrc][colSrc];
+    tileDest = TILES[rowDest][colDest];
+
+    // TODO: Figure out the real char adding logic here
+    newValue = tileSrc.innerHTML + tileDest.innerHTML
+    tileDest.innerHTML = "C"
+    // Only the base A and B tiles have special classes, strip those off
+    if (tileDest.className.indexOf("tile-a") != -1 
+            || tileDest.className.indexOf("tile-b") != -1) {
+        tileDest.className = "tile";
+    }
+
+    // Delete the old source tile
+    TILES[rowSrc][colSrc] = null;
+    tileSrc.remove();
 }
 
 function shiftTilesLeft() {
