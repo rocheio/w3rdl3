@@ -1,6 +1,17 @@
 const SPACE_BETWEEN_TILES = 0.4;
 const TILE_SIZE = 2.1;
 
+// General utility functions
+function randIntBetween(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+function reverseIndexOf(arr, value) {
+    for (i = arr.length - 1; i > 0; i--) {
+        if (arr[i] == value) return i;
+    }
+    return -1;
+}
+
 // The game space is a 5x5 grid of tiles that can not overlap
 // Values are `null` when no tile exists or a <div> element
 function initTileGrid() {
@@ -15,15 +26,13 @@ function initTileGrid() {
 }
 var TILES = initTileGrid();
 
-function randIntBetween(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function reverseIndexOf(arr, value) {
-    for (i = arr.length - 1; i > 0; i--) {
-        if (arr[i] == value) return i;
+function getColumnOfTiles(index) {
+    // Return a virtual column of tiles from the current game state
+    arr = new Array(5);
+    for (var row = 0; row < 5; row++) {
+        arr[row] = TILES[row][index];
     }
-    return -1;
+    return arr;
 }
 
 function createNewTileAt(row, col) {
@@ -79,6 +88,23 @@ function shiftOneTileRight(row, col) {
     }
 }
 
+function shiftTilesUp() {
+    for (col = 0; col < 5; col++) {
+        for (row = 0; row < 5; row++) {
+            if (TILES[row][col] != null) {
+                shiftOneTileUp(row, col);
+            }
+        }
+    }
+}
+function shiftOneTileUp(row, col) {
+    column = getColumnOfTiles(col)
+    upmostEmptyRow = column.indexOf(null);
+    if (upmostEmptyRow != -1 && upmostEmptyRow < row) {
+        moveTileToLocation(row, col, upmostEmptyRow, col);
+    }
+}
+
 function moveTileToLocation(oldRow, oldCol, newRow, newCol) {
     tile = TILES[oldRow][oldCol];
     TILES[oldRow][oldCol] = null;
@@ -101,7 +127,7 @@ window.onload = function(){
                 shiftTilesRight();
                 break;
             case "ArrowUp":
-                // Up pressed
+                shiftTilesUp();
                 break;
             case "ArrowDown":
                 // Down pressed
