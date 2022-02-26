@@ -130,22 +130,35 @@ function moveTileToLocation(oldRow, oldCol, newRow, newCol) {
     console.log(`tile (${oldRow}, ${oldCol}) shifted to (${newRow}, ${newCol})`);
 }
 
-function spawnNewRandomTile() {
-    x = randIntBetween(0, 5);
-    y = randIntBetween(0, 5);
-    createNewTileAt(x, y);
+function randomEmptyLocationInGrid() {
+    // Return random (row, col) coordinates of an empty space in the grid
+    emptySpaces = []
+    for (var row = 0; row < 5; row++) {
+        for (var col = 0; col < 5; col++) {
+            if (TILES[row][col] == null) {
+                emptySpaces.push([row, col]);
+            }
+        }
+    }
+    randIndex = Math.floor(Math.random() * emptySpaces.length);
+    return emptySpaces[randIndex];
+}
+
+function spawnNewTileAtRandomEmptyLocation() {
+    coords = randomEmptyLocationInGrid();
+    createNewTileAt(coords[0], coords[1]);
 }
 
 function triggerPostActionSequence() {
     // Roll a chance to spawn a new A or B tile in empty space
     newSquareSpawnChance = 0.3;
     if (Math.random() < newSquareSpawnChance) {
-        spawnNewRandomTile();
+        spawnNewTileAtRandomEmptyLocation();
     }
 }
 
 window.onload = function(){
-    spawnNewRandomTile();
+    spawnNewTileAtRandomEmptyLocation();
     window.addEventListener('keyup', function(event) {
         switch (event.key) {
             case "ArrowLeft":
