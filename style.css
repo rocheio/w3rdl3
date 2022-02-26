@@ -3,11 +3,6 @@
     width: 15rem;
     margin: 0 auto;
 }
-.game-tile {
-    border: 1px solid grey;
-    height: 2rem;
-    width: 2rem;
-}
 .grid-container {
     display: flex;
     flex-direction: column;
@@ -26,4 +21,15 @@
     width: 2rem;
     background-color: lightgrey;
     border: 1px solid black;
+}
+.tile {
+    position: absolute;
+    border: 1px solid red;
+    color: red;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+}
+.tile-container {
+    display: inline;
 }
