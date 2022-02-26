@@ -19,8 +19,8 @@ function randIntBetween(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function createTile(row, col) {
-    console.log(`creating tile at row ${row} col ${col}`);
+function createNewTileAt(row, col) {
+    console.log(`creating tile (${row}, ${col})`);
     var tile = document.createElement("div");
     tile.className = "tile";
     tile.innerHTML = "A";
@@ -41,7 +41,6 @@ function setTileTransform(tile, row, col) {
 }
 
 function shiftTilesLeft() {
-    console.log("shiftTilesLeft");
     // NOTE: Left operation needs to shift from 0 -> inf
     for (row = 0; row < 5; row++) {
         for (col = 0; col < 5; col++) {
@@ -59,11 +58,13 @@ function shiftOneTileLeft(row, col) {
         console.log("no room to shift, no action needed");
         return;
     }
+
     TILES[row][col] = null;
     TILES[row][firstEmpty] = tile;
     
     setTileTransform(tile, row, firstEmpty);
-    console.log(row, col, firstEmpty)
+
+    console.log(`tile (${row}, ${col}) shifted to (${row}, ${firstEmpty})`);
 }
 
 
@@ -74,7 +75,7 @@ function leftmostEmptyColInRow(x) {
 window.onload = function(){
     x = randIntBetween(0, 5);
     y = randIntBetween(0, 5);
-    createTile(x, y);
+    createNewTileAt(x, y);
 
     window.addEventListener('keyup', function(event) {
         switch (event.key) {
