@@ -12,19 +12,18 @@ ul {
 .grid-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 12rem;
     width: 12rem;
-    padding: 0.4rem;
+    margin: 0.1rem auto;
 }
 .grid-row {
     display: flex;
-    justify-content: space-between;
 }
 .grid-cell {
     height: 2rem;
     width: 2rem;
-    border: 1px solid grey;
+    border: 1px solid lightgrey;
+    margin: 2px;
 }
 .tile {
     position: absolute;
@@ -34,15 +33,15 @@ ul {
     font-weight: bold;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     color: white;
-    border: 1px solid lightgrey;
+    border: 2px solid lightgrey;
     background-color: grey;
 }
 .tile-a {
-    border: 1px solid lime;
+    border-color: lime;
     background-color: green;
 }
 .tile-b {
-    border: 1px solid yellow;
+    border-color: yellow;
     background-color: gold;
 }
 .tile-container {
@@ -52,7 +51,27 @@ ul {
     font-size: 0.6rem;
 }
 .stats-container {
+    width: 12rem;
+    margin: 0 auto;
     display: flex;
-    font-size: 0.8rem;
     justify-content: space-between;
+    font-size: 0.6rem;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+.stats-container label {
+    color: grey;
+}
+.stats-container span {
+    font-weight: bold;
+}
+.word-container {
+    display: flex;
+    justify-content: space-around;
+}
+#word-input {
+    height: 1rem;
+    width: 5rem;
+    border: 1px solid lightgrey;
+    color: grey;
+    text-align: center;
 }

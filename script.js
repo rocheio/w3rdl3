@@ -1,4 +1,4 @@
-const SPACE_BETWEEN_TILES = 0.4;
+const SPACE_BETWEEN_TILES = 0.275;
 const TILE_SIZE = 2.1;
 
 // The game space is a 5x5 grid of tiles that can not overlap
@@ -67,8 +67,8 @@ function createNewTileAt(row, col, value) {
 
 function setTileTransform(tile, row, col) {
     // Adjust tile position via overloading style tag
-    absX = TILE_SIZE * row + SPACE_BETWEEN_TILES * row + SPACE_BETWEEN_TILES;
-    absY = TILE_SIZE * col + SPACE_BETWEEN_TILES * col + SPACE_BETWEEN_TILES;
+    absX = TILE_SIZE * row + SPACE_BETWEEN_TILES * row;
+    absY = TILE_SIZE * col + SPACE_BETWEEN_TILES * col;
     tile.style.transform = `translate(${absY}rem, ${absX}rem)`;
 }
 
