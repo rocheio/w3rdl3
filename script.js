@@ -376,3 +376,5 @@ window.onload = function(){
     });
     resetGameStateToStartingPoint();
 }
+
+// TODO: "Random 25 turns" button

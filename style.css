@@ -26,6 +26,10 @@ ul {
     margin: 2px;
 }
 .tile {
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     height: 2rem;
     width: 2rem;
