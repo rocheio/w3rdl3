@@ -368,7 +368,7 @@ function updateMoveCountUI() {
 
 function resetGameStateToStartingPoint() {
     TILES = newTileGrid();
-    GAME_MOVES = 150;
+    GAME_MOVES = 125;
     GAME_SCORE = 0;
     GAME_WORDS_SCORED = [];
     updateMoveCountUI();
