@@ -52,24 +52,18 @@ function shiftTilesLeft() {
 }
 
 function shiftOneTileLeft(row, col) {
-    tile = TILES[row][col];
-    firstEmpty = leftmostEmptyColInRow(row);
-    if (firstEmpty == -1) {
-        console.log("no room to shift, no action needed");
-        return;
+    leftmostEmptyCol = TILES[row].indexOf(null);
+    if (leftmostEmptyCol != -1 && leftmostEmptyCol < col) {
+        moveTileToLocation(row, col, row, leftmostEmptyCol);
     }
-
-    TILES[row][col] = null;
-    TILES[row][firstEmpty] = tile;
-    
-    setTileTransform(tile, row, firstEmpty);
-
-    console.log(`tile (${row}, ${col}) shifted to (${row}, ${firstEmpty})`);
 }
 
-
-function leftmostEmptyColInRow(x) {
-    return TILES[x].indexOf(null);
+function moveTileToLocation(oldRow, oldCol, newRow, newCol) {
+    tile = TILES[oldRow][oldCol];
+    TILES[oldRow][oldCol] = null;
+    TILES[newRow][newCol] = tile;
+    setTileTransform(tile, newRow, newCol);
+    console.log(`tile (${oldRow}, ${oldCol}) shifted to (${newRow}, ${newCol})`);
 }
 
 window.onload = function(){
