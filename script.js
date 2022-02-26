@@ -19,6 +19,13 @@ function randIntBetween(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function reverseIndexOf(arr, value) {
+    for (i = arr.length - 1; i > 0; i--) {
+        if (arr[i] == value) return i;
+    }
+    return -1;
+}
+
 function createNewTileAt(row, col) {
     console.log(`creating tile (${row}, ${col})`);
     var tile = document.createElement("div");
@@ -41,7 +48,6 @@ function setTileTransform(tile, row, col) {
 }
 
 function shiftTilesLeft() {
-    // NOTE: Left operation needs to shift from 0 -> inf
     for (row = 0; row < 5; row++) {
         for (col = 0; col < 5; col++) {
             if (TILES[row][col] != null) {
@@ -50,11 +56,26 @@ function shiftTilesLeft() {
         }
     }
 }
-
 function shiftOneTileLeft(row, col) {
     leftmostEmptyCol = TILES[row].indexOf(null);
     if (leftmostEmptyCol != -1 && leftmostEmptyCol < col) {
         moveTileToLocation(row, col, row, leftmostEmptyCol);
+    }
+}
+
+function shiftTilesRight() {
+    for (row = 4; row >= 0; row--) {
+        for (col = 4; col >= 0; col--) {
+            if (TILES[row][col] != null) {
+                shiftOneTileRight(row, col);
+            }
+        }
+    }
+}
+function shiftOneTileRight(row, col) {
+    rightmostEmptyCol = reverseIndexOf(TILES[row], null);
+    if (rightmostEmptyCol != -1 && rightmostEmptyCol > col) {
+        moveTileToLocation(row, col, row, rightmostEmptyCol);
     }
 }
 
@@ -77,7 +98,7 @@ window.onload = function(){
                 shiftTilesLeft();
                 break;
             case "ArrowRight":
-                // Right pressed
+                shiftTilesRight();
                 break;
             case "ArrowUp":
                 // Up pressed
