@@ -1,0 +1,27 @@
+.game-container {
+    height: 15rem;
+    width: 15rem;
+    margin: 0 auto;
+}
+.game-tile {
+    border: 1px solid grey;
+    height: 2rem;
+    width: 2rem;
+}
+.grid-container {
+    height: 13rem;
+    width: 12rem;
+    background-color: grey;
+}
+.grid-row {
+    height: 2.3rem;
+    width: 11.6rem;
+    padding: 0.1rem;
+}
+.grid-cell {
+    float: left;
+    height: 2rem;
+    width: 2rem;
+    margin: 0.1rem;
+    background-color: lightgrey;
+}
