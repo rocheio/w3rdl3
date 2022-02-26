@@ -73,7 +73,7 @@ function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {
     // console.log(`tile (${row}, ${col}) checking at (${row}, ${collidesAt})`);
     l1 = TILES[rowSrc][colSrc].innerHTML;
     l2 = TILES[rowDest][colDest].innerHTML;
-    
+
     // `A` tiles do not combine together
     if (l1 == "A" && l2 == "A") return false;
     // `B` tiles do not combine together
@@ -97,7 +97,7 @@ function combineTiles(rowSrc, colSrc, rowDest, colDest) {
     tileDest.innerHTML = addLetters(tileSrc.innerHTML, tileDest.innerHTML);
 
     // Only the base A and B tiles have special classes, strip those off
-    if (tileDest.className.indexOf("tile-a") != -1 
+    if (tileDest.className.indexOf("tile-a") != -1
             || tileDest.className.indexOf("tile-b") != -1) {
         tileDest.className = "tile";
     }
@@ -111,14 +111,15 @@ function shiftTilesLeft() {
     for (row = 0; row < 5; row++) {
         for (col = 0; col < 5; col++) {
             if (TILES[row][col] != null) {
-                shiftOneTileLeft(row, col);
+                shiftSingleTileLeft(row, col);
             }
         }
     }
 }
-function shiftOneTileLeft(row, col) {
+function shiftSingleTileLeft(row, col) {
+    if (col == 0) return;
     rowValues = TILES[row];
-    
+
     // Prefer moving to empty space
     leftmostEmptyCol = rowValues.indexOf(null);
     if (leftmostEmptyCol != -1 && leftmostEmptyCol < col) {
@@ -127,7 +128,7 @@ function shiftOneTileLeft(row, col) {
     }
 
     // Combine with adjacent tile if unable to move
-    if (col != 0 && tilesMayCombine(row, col, row, col-1)) {
+    if (tilesMayCombine(row, col, row, col-1)) {
         combineTiles(row, col, row, col-1);
     }
 }
@@ -136,14 +137,15 @@ function shiftTilesRight() {
     for (row = 4; row >= 0; row--) {
         for (col = 4; col >= 0; col--) {
             if (TILES[row][col] != null) {
-                shiftOneTileRight(row, col);
+                shiftSingleTileRight(row, col);
             }
         }
     }
 }
-function shiftOneTileRight(row, col) {
+function shiftSingleTileRight(row, col) {
+    if (col == 4) return;
     rowValues = TILES[row];
-    
+
     // Prefer moving to empty space
     rightmostEmptyCol = reverseIndexOf(rowValues, null);
     if (rightmostEmptyCol != -1 && rightmostEmptyCol > col) {
@@ -152,7 +154,7 @@ function shiftOneTileRight(row, col) {
     }
 
     // Combine with adjacent tile if unable to move
-    if (col != 4 && tilesMayCombine(row, col, row, col+1)) {
+    if (tilesMayCombine(row, col, row, col+1)) {
         combineTiles(row, col, row, col+1);
     }
 }
@@ -161,12 +163,13 @@ function shiftTilesUp() {
     for (col = 0; col < 5; col++) {
         for (row = 0; row < 5; row++) {
             if (TILES[row][col] != null) {
-                shiftOneTileUp(row, col);
+                shiftSingleTileUp(row, col);
             }
         }
     }
 }
-function shiftOneTileUp(row, col) {
+function shiftSingleTileUp(row, col) {
+    if (row == 0) return;
     columnValues = getColumnOfTiles(col)
 
     // Prefer moving to empty space
@@ -177,7 +180,7 @@ function shiftOneTileUp(row, col) {
     }
 
     // Combine with adjacent tile if unable to move
-    if (row != 0 && tilesMayCombine(row, col, row-1, col)) {
+    if (tilesMayCombine(row, col, row-1, col)) {
         combineTiles(row, col, row-1, col);
     }
 }
@@ -186,14 +189,15 @@ function shiftTilesDown() {
     for (col = 4; col >= 0; col--) {
         for (row = 4; row >= 0; row--) {
             if (TILES[row][col] != null) {
-                shiftOneTileDown(row, col);
+                shiftSingleTileDown(row, col);
             }
         }
     }
 }
-function shiftOneTileDown(row, col) {
+function shiftSingleTileDown(row, col) {
+    if (row == 4) return;
     columnValues = getColumnOfTiles(col)
-    
+
     // Prefer moving to empty space
     downmostEmptyRow = reverseIndexOf(columnValues, null);
     if (downmostEmptyRow != -1 && downmostEmptyRow > row) {
@@ -202,7 +206,7 @@ function shiftOneTileDown(row, col) {
     }
 
     // Combine with adjacent tile if unable to move
-    if (row != 4 && tilesMayCombine(row, col, row+1, col)) {
+    if (tilesMayCombine(row, col, row+1, col)) {
         combineTiles(row, col, row+1, col);
     }
 }
