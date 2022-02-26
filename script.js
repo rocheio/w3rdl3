@@ -180,6 +180,18 @@ function shiftTilesUp() {
 }
 function shiftOneTileUp(row, col) {
     columnValues = getColumnOfTiles(col)
+
+    // Check if nearest non-empty tile (the one THIS tile would "hit") may combine
+    collidesAt = -1;
+    for (collidesAt = row-1; collidesAt > -1; collidesAt--) {
+        if (columnValues[collidesAt] != null) {
+            if (tilesMayCombine(row, col, collidesAt, col)) {
+                combineTiles(row, col, collidesAt, col);
+                return;
+            }
+            break;
+        }
+    }
     
     // No combination available, move to furthest empty location
     upmostEmptyRow = columnValues.indexOf(null);
