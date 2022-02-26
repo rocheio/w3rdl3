@@ -33,7 +33,7 @@ function addLetters(l1, l2) {
     return String.fromCharCode(cc1 + cc2 + charCodeOffset);
 }
 
-function initTileGrid() {
+function newTileGrid() {
     grid = new Array(5);
     for (var row = 0; row < 5; row++) {
         grid[row] = new Array(5);
@@ -67,8 +67,7 @@ function createNewTileAt(row, col, value) {
     TILES[row][col] = tile;
     setTileTransform(tile, row, col);
 
-    grid = document.getElementsByClassName("tile-container")[0];
-    grid.appendChild(tile);
+    document.getElementById("tile-container").appendChild(tile);
 }
 
 function setTileTransform(tile, row, col) {
@@ -241,6 +240,9 @@ function triggerPostActionSequence() {
     // Decrease the move counter and end the game when it hits zero
     GAME_MOVES -= 1;
     updateMoveCountUI();
+    if (GAME_MOVES == 0) {
+        triggerGameOverModal();
+    }
 }
 
 function toggleWordInputField() {
@@ -347,16 +349,30 @@ function updateMoveCountUI() {
 }
 
 function resetGameStateToStartingPoint() {
-    TILES = initTileGrid();
+    TILES = newTileGrid();
     GAME_MOVES = 150;
     GAME_SCORE = 0;
     GAME_WORDS_SCORED = [];
-    spawnNewTileAtRandomEmptyLocation();
     updateMoveCountUI();
+    hideAllModals();
+    document.getElementById("tile-container").innerHTML = "";
+    spawnNewTileAtRandomEmptyLocation();
+}
+
+function triggerGameOverModal() {
+    document.getElementById("modal-game-over").style.display = "flex";
+}
+
+function hideAllModals() {
+    document.getElementById("modal-game-over").style.display = "none";
+    document.getElementById("modal-instructions").style.display = "none";
 }
 
 window.onload = function(){
     preventDefaultKeydownActions();
     bindAppKeyupEvents();
+    document.getElementById("button-new-game").addEventListener("click", function(){
+        resetGameStateToStartingPoint();
+    });
     resetGameStateToStartingPoint();
 }

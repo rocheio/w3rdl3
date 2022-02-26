@@ -44,7 +44,7 @@ ul {
     border-color: yellow;
     background-color: gold;
 }
-.tile-container {
+#tile-container {
     display: inline;
 }
 .instructions {
@@ -74,4 +74,22 @@ ul {
     border: 1px solid lightgrey;
     color: grey;
     text-align: center;
+}
+#modal-game-over {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    background-color: black;
+    opacity: 0.9;
+    color: white;
+}
+#modal-game-over h1 {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
 }

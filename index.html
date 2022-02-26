@@ -40,7 +40,7 @@
 </div>
 
 <div class="grid-container">
-    <div class="tile-container"></div>
+    <div id="tile-container"></div>
     <div class="grid-row">
         <div class="grid-cell"></div>
         <div class="grid-cell"></div>
@@ -82,22 +82,30 @@
     <input type="text" id="word-input" placeholder="_ _ _ _ _"></input>
 </div>
 
-<h4>Instructions</h4>
-<ul class="instructions">
-    <li>Use arrow keys to shift all tiles</li>
-    <li>New A and B tiles will spawn randomly</li>
-    <li>Tiles may combine when there is no space to move:
-        <ul>
-            <li>A tiles will combine with adjacent non-A tiles</li>
-            <li>B tiles will combine with adjacent non-B tiles</li>
-        </ul>
-    </li>
-    <li>Type a 5-letter word from contiguous letters to score
-        <ul>
-            <li>A and B tiles are worth no points</li>
-        </ul>
-    </li>
-</ul>
+<div id="modal-instructions">
+    <h4>Instructions</h4>
+    <ul class="instructions">
+        <li>Use arrow keys to shift all tiles</li>
+        <li>New A and B tiles will spawn randomly</li>
+        <li>Tiles may combine when there is no space to move:
+            <ul>
+                <li>A tiles will combine with adjacent non-A tiles</li>
+                <li>B tiles will combine with adjacent non-B tiles</li>
+            </ul>
+        </li>
+        <li>Type a 5-letter word from contiguous letters to score
+            <ul>
+                <li>A and B tiles are worth no points</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div id="modal-game-over">
+    <h1>Game Over</h1>
+    <div>Thanks for playing!</div>
+    <button id="button-new-game">New Game</button>
+</div>
 
 </div>
 <script src="script.js"></script>
