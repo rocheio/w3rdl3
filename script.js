@@ -35,14 +35,18 @@ function getColumnOfTiles(index) {
     return arr;
 }
 
-function createNewTileAt(row, col) {
-    console.log(`creating tile (${row}, ${col})`);
+function createNewTileAt(row, col, value) {
+    // console.log(`creating tile (${row}, ${col})`);
     var tile = document.createElement("div");
+    tile.innerHTML = value;
     tile.className = "tile";
-    tile.innerHTML = "A";
-    
+    if (value == "A") {
+        tile.className += " tile-a";
+    } else if (value == "B") {
+        tile.className += " tile-b";
+    }
+
     TILES[row][col] = tile;
-    
     setTileTransform(tile, row, col);
 
     grid = document.getElementsByClassName("tile-container")[0];
@@ -127,11 +131,12 @@ function moveTileToLocation(oldRow, oldCol, newRow, newCol) {
     TILES[oldRow][oldCol] = null;
     TILES[newRow][newCol] = tile;
     setTileTransform(tile, newRow, newCol);
-    console.log(`tile (${oldRow}, ${oldCol}) shifted to (${newRow}, ${newCol})`);
+    // console.log(`tile (${oldRow}, ${oldCol}) shifted to (${newRow}, ${newCol})`);
 }
 
 function randomEmptyLocationInGrid() {
-    // Return random (row, col) coordinates of an empty space in the grid
+    // Return random (row, col) coordinates of an empty space in the grid.
+    // Return null if no such location exists
     emptySpaces = []
     for (var row = 0; row < 5; row++) {
         for (var col = 0; col < 5; col++) {
@@ -140,13 +145,22 @@ function randomEmptyLocationInGrid() {
             }
         }
     }
+    if (emptySpaces.length == 0) {
+        return null;
+    }
     randIndex = Math.floor(Math.random() * emptySpaces.length);
     return emptySpaces[randIndex];
 }
 
 function spawnNewTileAtRandomEmptyLocation() {
     coords = randomEmptyLocationInGrid();
-    createNewTileAt(coords[0], coords[1]);
+    // TODO: Reset game, etc.
+    if (coords == null) {
+        alert("Game over");
+        return;
+    }
+    value = Math.random() < 0.5 ? "A" : "B";
+    createNewTileAt(coords[0], coords[1], value);
 }
 
 function triggerPostActionSequence() {

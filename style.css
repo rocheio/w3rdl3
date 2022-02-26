@@ -1,3 +1,6 @@
+.title {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
 .game-container {
     height: 15rem;
     width: 15rem;
@@ -24,12 +27,23 @@
 }
 .tile {
     position: absolute;
-    border: 1px solid red;
-    color: red;
     height: 2rem;
     width: 2rem;
     text-align: center;
+    font-weight: bold;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+.tile-a {
+    border: 1px solid green;
+    background-color: lime;
+}
+.tile-b {
+    border: 1px solid gold;
+    background-color: yellow;
 }
 .tile-container {
     display: inline;
+}
+.instructions {
+    font-size: 0.6rem;
 }
