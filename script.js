@@ -62,8 +62,15 @@ function setTileTransform(tile, row, col) {
 
 function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {
     // Return true if a two tiles may be legally combined
-    console.log(`tile (${row}, ${col}) checking at (${row}, ${collidesAt})`);
-    return false;
+    // console.log(`tile (${row}, ${col}) checking at (${row}, ${collidesAt})`);
+    tileSrc = TILES[rowSrc][colSrc];
+    tileDest = TILES[rowDest][colDest];
+    if (tileSrc.innerHTML == "A" && tileDest.innerHTML == "A") return false;
+    if (tileSrc.innerHTML == "B" && tileDest.innerHTML == "B") return false;
+    // TODO: If `src + dest > "Z"` then false
+    // TODO: If either tile has been combined already return false
+    // (temp set in memory of `tilesCombinedThisTurn` that resets in post-op)
+    return true;
 }
 
 function combineTiles(rowSrc, colSrc, rowDest, colDest) {
