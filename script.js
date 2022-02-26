@@ -11,6 +11,14 @@ function reverseIndexOf(arr, value) {
     }
     return -1;
 }
+function addLetters(l1, l2) {
+    // Add two letters together using alphanumerics. Return `null` if more than 26 (Z)
+    charCodeOffset = 64 // "A" == 65, lets use A=1 and Z=26
+    cc1 = l1.charCodeAt(0) - charCodeOffset
+    cc2 = l2.charCodeAt(0) - charCodeOffset
+    if (cc1 + cc2 > 26) return null;
+    return String.fromCharCode(cc1 + cc2 + charCodeOffset);
+}
 
 // The game space is a 5x5 grid of tiles that can not overlap
 // Values are `null` when no tile exists or a <div> element
@@ -67,7 +75,7 @@ function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {
     tileDest = TILES[rowDest][colDest];
     if (tileSrc.innerHTML == "A" && tileDest.innerHTML == "A") return false;
     if (tileSrc.innerHTML == "B" && tileDest.innerHTML == "B") return false;
-    // TODO: If `src + dest > "Z"` then false
+    if (addLetters(tileSrc.innerHTML, tileDest.innerHTML) == null) return false;
     // TODO: If either tile has been combined already return false
     // (temp set in memory of `tilesCombinedThisTurn` that resets in post-op)
     return true;
@@ -79,9 +87,8 @@ function combineTiles(rowSrc, colSrc, rowDest, colDest) {
     tileSrc = TILES[rowSrc][colSrc];
     tileDest = TILES[rowDest][colDest];
 
-    // TODO: Figure out the real char adding logic here
-    newValue = tileSrc.innerHTML + tileDest.innerHTML
-    tileDest.innerHTML = "C"
+    tileDest.innerHTML = addLetters(tileSrc.innerHTML, tileDest.innerHTML);
+
     // Only the base A and B tiles have special classes, strip those off
     if (tileDest.className.indexOf("tile-a") != -1 
             || tileDest.className.indexOf("tile-b") != -1) {
@@ -103,11 +110,6 @@ function shiftTilesLeft() {
     }
 }
 function shiftOneTileLeft(row, col) {
-    // [A,x,x,B,A]
-    // A no shift, no adjacent to the left
-    // B shifts, finds A and combines in spot 0
-    // A shifts, spot 0 already combined, goes to 1
-
     rowValues = TILES[row];
 
     // Check if nearest non-empty tile (the one THIS tile would "hit") may combine
