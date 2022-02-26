@@ -148,7 +148,22 @@ function shiftTilesRight() {
     }
 }
 function shiftOneTileRight(row, col) {
-    rightmostEmptyCol = reverseIndexOf(TILES[row], null);
+    rowValues = TILES[row];
+    
+    // Check if nearest non-empty tile (the one THIS tile would "hit") may combine
+    collidesAt = 5;
+    for (collidesAt = col-1; collidesAt < 5; collidesAt++) {
+        if (rowValues[collidesAt] != null) {
+            if (tilesMayCombine(row, col, row, collidesAt)) {
+                combineTiles(row, col, row, collidesAt);
+                return;
+            }
+            break;
+        }
+    }
+
+    // No combination available, move to furthest empty location
+    rightmostEmptyCol = reverseIndexOf(rowValues, null);
     if (rightmostEmptyCol != -1 && rightmostEmptyCol > col) {
         moveTileToLocation(row, col, row, rightmostEmptyCol);
     }
@@ -165,6 +180,8 @@ function shiftTilesUp() {
 }
 function shiftOneTileUp(row, col) {
     columnValues = getColumnOfTiles(col)
+    
+    // No combination available, move to furthest empty location
     upmostEmptyRow = columnValues.indexOf(null);
     if (upmostEmptyRow != -1 && upmostEmptyRow < row) {
         moveTileToLocation(row, col, upmostEmptyRow, col);
@@ -182,6 +199,8 @@ function shiftTilesDown() {
 }
 function shiftOneTileDown(row, col) {
     columnValues = getColumnOfTiles(col)
+
+    // No combination available, move to furthest empty location
     downmostEmptyRow = reverseIndexOf(columnValues, null);
     if (downmostEmptyRow != -1 && downmostEmptyRow > row) {
         moveTileToLocation(row, col, downmostEmptyRow, col);
