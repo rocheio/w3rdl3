@@ -1,3 +1,4 @@
+// Styling constants for moving the tiles with CSS transforms
 const SPACE_BETWEEN_TILES = 0.275;
 const TILE_SIZE = 2.1;
 
@@ -5,6 +6,11 @@ const TILE_SIZE = 2.1;
 // Values are `null` when no tile exists or a <div> element
 // This global is initialized on each window load
 var TILES = []
+
+// Each game tracks moves taken, a numerical score, and words scored with
+var GAME_MOVES = 0;
+var GAME_SCORE = 0;
+var GAME_WORDS_SCORED = [];
 
 // General utility functions
 function randIntBetween(min, max) {
@@ -232,6 +238,9 @@ function triggerPostActionSequence() {
     if (Math.random() < newSquareSpawnChance) {
         spawnNewTileAtRandomEmptyLocation();
     }
+    // Decrease the move counter and end the game when it hits zero
+    GAME_MOVES -= 1;
+    updateMoveCountUI();
 }
 
 function toggleWordInputField() {
@@ -333,9 +342,21 @@ function bindAppKeyupEvents() {
     });
 }
 
+function updateMoveCountUI() {
+    document.getElementById("moves-value").innerHTML = GAME_MOVES;
+}
+
+function resetGameStateToStartingPoint() {
+    TILES = initTileGrid();
+    GAME_MOVES = 150;
+    GAME_SCORE = 0;
+    GAME_WORDS_SCORED = [];
+    spawnNewTileAtRandomEmptyLocation();
+    updateMoveCountUI();
+}
+
 window.onload = function(){
     preventDefaultKeydownActions();
     bindAppKeyupEvents();
-    TILES = initTileGrid();
-    spawnNewTileAtRandomEmptyLocation();
+    resetGameStateToStartingPoint();
 }
