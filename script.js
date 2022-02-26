@@ -60,6 +60,17 @@ function setTileTransform(tile, row, col) {
     tile.style.transform = `translate(${absY}rem, ${absX}rem)`;
 }
 
+function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {
+    // Return true if a two tiles may be legally combined
+    console.log(`tile (${row}, ${col}) checking at (${row}, ${collidesAt})`);
+    return false;
+}
+
+function combineTiles(rowSrc, colSrc, rowDest, colDest) {
+    // Combine a source tile with a destination tile at the destination
+    console.log(`tile (${row}, ${col}) combining at (${row}, ${collidesAt})`);
+}
+
 function shiftTilesLeft() {
     for (row = 0; row < 5; row++) {
         for (col = 0; col < 5; col++) {
@@ -70,7 +81,27 @@ function shiftTilesLeft() {
     }
 }
 function shiftOneTileLeft(row, col) {
-    leftmostEmptyCol = TILES[row].indexOf(null);
+    // [A,x,x,B,A]
+    // A no shift, no adjacent to the left
+    // B shifts, finds A and combines in spot 0
+    // A shifts, spot 0 already combined, goes to 1
+
+    rowValues = TILES[row];
+
+    // Check if nearest non-empty tile (the one THIS tile would "hit") may combine
+    collidesAt = -1;
+    for (collidesAt = col-1; collidesAt > -1; collidesAt--) {
+        if (rowValues[collidesAt] != null) {
+            if (tilesMayCombine(row, col, row, collidesAt)) {
+                combineTiles(row, col, row, collidesAt);
+                return;
+            }
+            break;
+        }
+    }
+
+    // No combination available, move to furthest empty location
+    leftmostEmptyCol = rowValues.indexOf(null);
     if (leftmostEmptyCol != -1 && leftmostEmptyCol < col) {
         moveTileToLocation(row, col, row, leftmostEmptyCol);
     }
@@ -102,8 +133,8 @@ function shiftTilesUp() {
     }
 }
 function shiftOneTileUp(row, col) {
-    column = getColumnOfTiles(col)
-    upmostEmptyRow = column.indexOf(null);
+    columnValues = getColumnOfTiles(col)
+    upmostEmptyRow = columnValues.indexOf(null);
     if (upmostEmptyRow != -1 && upmostEmptyRow < row) {
         moveTileToLocation(row, col, upmostEmptyRow, col);
     }
@@ -119,8 +150,8 @@ function shiftTilesDown() {
     }
 }
 function shiftOneTileDown(row, col) {
-    column = getColumnOfTiles(col)
-    downmostEmptyRow = reverseIndexOf(column, null);
+    columnValues = getColumnOfTiles(col)
+    downmostEmptyRow = reverseIndexOf(columnValues, null);
     if (downmostEmptyRow != -1 && downmostEmptyRow > row) {
         moveTileToLocation(row, col, downmostEmptyRow, col);
     }
