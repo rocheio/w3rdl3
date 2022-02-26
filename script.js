@@ -10,12 +10,14 @@ var TILES = []
 function randIntBetween(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
+
 function reverseIndexOf(arr, value) {
     for (i = arr.length - 1; i > 0; i--) {
         if (arr[i] == value) return i;
     }
     return -1;
 }
+
 function addLetters(l1, l2) {
     // Add two letters together using alphanumerics. Return `null` if more than 26 (Z)
     charCodeOffset = 64 // "A" == 65, lets use A=1 and Z=26
@@ -118,6 +120,7 @@ function shiftTilesLeft() {
         }
     }
 }
+
 function shiftSingleTileLeft(row, col) {
     if (col == 0) return;
     if (TILES[row][col-1] == null) {
@@ -136,6 +139,7 @@ function shiftTilesRight() {
         }
     }
 }
+
 function shiftSingleTileRight(row, col) {
     if (col == 4) return;
     if (TILES[row][col+1] == null) {
@@ -154,6 +158,7 @@ function shiftTilesUp() {
         }
     }
 }
+
 function shiftSingleTileUp(row, col) {
     if (row == 0) return;
     columnValues = getColumnOfTiles(col)
@@ -173,6 +178,7 @@ function shiftTilesDown() {
         }
     }
 }
+
 function shiftSingleTileDown(row, col) {
     if (row == 4) return;
     columnValues = getColumnOfTiles(col)
@@ -283,7 +289,7 @@ function validWordOnGameBoard(word) {
     // Return True if word is 5 letters, in the dictionary, and contiguous on the board
     var allLetters = letterCountsOnGameBoard();
     var wordLetters = letterCountsOfWord(word);
-    console.log(`All letters on board: ${Object.keys(allLetters)} vs input: ${Object.keys(wordLetters)}`);
+    // console.log(`All letters on board: ${Object.keys(allLetters)} vs input: ${Object.keys(wordLetters)}`);
     for (letter in wordLetters) {
         if (allLetters[letter] == undefined || wordLetters[letter] > allLetters[letter]) {
             return false;
@@ -305,22 +311,18 @@ function bindAppKeyupEvents() {
     window.addEventListener('keyup', function(event) {
         switch (event.key) {
             case "ArrowLeft":
-                event.preventDefault();
                 shiftTilesLeft();
                 triggerPostActionSequence();
                 break;
             case "ArrowRight":
-                event.preventDefault();
                 shiftTilesRight();
                 triggerPostActionSequence();
                 break;
             case "ArrowUp":
-                event.preventDefault();
                 shiftTilesUp();
                 triggerPostActionSequence();
                 break;
             case "ArrowDown":
-                event.preventDefault();
                 shiftTilesDown();
                 triggerPostActionSequence();
                 break;

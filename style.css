@@ -16,7 +16,6 @@ ul {
     height: 12rem;
     width: 12rem;
     padding: 0.4rem;
-    background-color: #333;
 }
 .grid-row {
     display: flex;
@@ -25,7 +24,6 @@ ul {
 .grid-cell {
     height: 2rem;
     width: 2rem;
-    background-color: #333;
     border: 1px solid grey;
 }
 .tile {
