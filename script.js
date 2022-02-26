@@ -226,8 +226,31 @@ function triggerPostActionSequence() {
     }
 }
 
+function toggleWordInputField() {
+    elem = document.getElementById("word-input");
+
+    if (document.activeElement != elem) {
+        elem.focus();
+        return;
+    }
+
+    if (validWordOnGameBoard(elem.value)) {
+        console.log(`Valid 5-letter word in game board: '${elem.value}'`);
+        // TODO: Add points, display word in a running list somewhere?
+        return;
+    }
+
+    console.log(`Invalid 5-letter word in game board: '${elem.value}'`);
+    elem.value = '';
+    elem.blur();
+}
+
+function validWordOnGameBoard(word) {
+    // Return True if word is 5 letters, in the dictionary, and contiguous on the board
+    return false;
+}
+
 window.onload = function(){
-    spawnNewTileAtRandomEmptyLocation();
     window.addEventListener('keyup', function(event) {
         switch (event.key) {
             case "ArrowLeft":
@@ -246,6 +269,10 @@ window.onload = function(){
                 shiftTilesDown();
                 triggerPostActionSequence();
                 break;
+            case "Enter":
+                toggleWordInputField();
+                break;
         }
     });
+    spawnNewTileAtRandomEmptyLocation();
 }
