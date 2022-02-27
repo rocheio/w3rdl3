@@ -1,7 +1,7 @@
 // Styling constants for moving the tiles with CSS transforms
 // TODO: Calculate this at game init time instead of using magic numbers
-const SPACE_BETWEEN_TILES = 0.26;
-const TILE_SIZE = 3.75;
+const SPACE_BETWEEN_TILES = 4;
+const TILE_SIZE = 61;
 
 // The game space is a 5x5 grid of tiles that can not overlap
 // Values are `null` when no tile exists or a <div> element
@@ -79,7 +79,7 @@ function setTileTransform(tile, row, col) {
     // Adjust tile position via overloading style tag
     absX = TILE_SIZE * row + SPACE_BETWEEN_TILES * row;
     absY = TILE_SIZE * col + SPACE_BETWEEN_TILES * col;
-    tile.style.transform = `translate(${absY}rem, ${absX}rem)`;
+    tile.style.transform = `translate(${absY}px, ${absX}px)`;
 }
 
 function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {

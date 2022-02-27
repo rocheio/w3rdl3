@@ -8,7 +8,7 @@ body {
 
 .game-container {
     margin: 0 auto;
-    max-width: 20rem;
+    max-width: 22rem;
 }
 
 .title {
@@ -29,10 +29,15 @@ body {
     font-weight: bold;
 }
 
+.grid-centering {
+    display: flex;
+    align-items: center;
+}
 .grid-container {
     display: flex;
     flex-direction: column;
-    margin: 0.2rem;
+    align-items: flex-start;
+    margin: 0.2rem auto;
 }
 
 .grid-row {
@@ -41,8 +46,8 @@ body {
 
 .grid-cell {
     flex: 1;
-    height: 60px;
-    width: 60px;
+    height: 59px;
+    width: 59px;
     border: 1px solid grey;
     margin: 2px;
 }
@@ -82,8 +87,7 @@ body {
 }
 
 .control-container {
-    margin: 0 2rem;
-    margin-bottom: 0.5rem;
+    margin: 0.5rem 2rem;
     display: flex;
     justify-content: space-between;
 }
