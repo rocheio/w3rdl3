@@ -123,6 +123,7 @@ function shiftTilesLeft() {
             }
         }
     }
+    triggerPostActionSequence();
 }
 
 function shiftSingleTileLeft(row, col) {
@@ -142,6 +143,7 @@ function shiftTilesRight() {
             }
         }
     }
+    triggerPostActionSequence();
 }
 
 function shiftSingleTileRight(row, col) {
@@ -161,6 +163,7 @@ function shiftTilesUp() {
             }
         }
     }
+    triggerPostActionSequence();
 }
 
 function shiftSingleTileUp(row, col) {
@@ -181,6 +184,7 @@ function shiftTilesDown() {
             }
         }
     }
+    triggerPostActionSequence();
 }
 
 function shiftSingleTileDown(row, col) {
@@ -329,22 +333,18 @@ function bindAppKeyEvents() {
 
         if (event.key == "ArrowLeft") {
             shiftTilesLeft();
-            triggerPostActionSequence();
             return;
         }
         if (event.key == "ArrowRight") {
             shiftTilesRight();
-            triggerPostActionSequence();
             return;
         }
         if (event.key == "ArrowUp") {
             shiftTilesUp();
-            triggerPostActionSequence();
             return;
         }
         if (event.key == "ArrowDown") {
             shiftTilesDown();
-            triggerPostActionSequence();
             return;
         }
         if (event.key == "Enter") {
@@ -378,6 +378,12 @@ function bindUIElementActions() {
     wordInput = document.getElementById("word-input")
     wordInput.onchange = function(){ wordInput.classList.remove("error"); }
     wordInput.addEventListener("input", function(){ wordInput.classList.remove("error"); });
+
+    // Arrow buttons in UI
+    document.getElementById("control-arrow-left").addEventListener("click", shiftTilesLeft);
+    document.getElementById("control-arrow-right").addEventListener("click", shiftTilesRight);
+    document.getElementById("control-arrow-up").addEventListener("click", shiftTilesUp);
+    document.getElementById("control-arrow-down").addEventListener("click", shiftTilesDown);
 }
 
 function updateMoveCountUI() {

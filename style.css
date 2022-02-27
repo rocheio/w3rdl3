@@ -54,6 +54,7 @@ ul {
 .instructions {
     font-size: 0.6rem;
 }
+
 .stats-container {
     width: 12rem;
     margin: 0 auto;
@@ -68,6 +69,26 @@ ul {
 .stats-container span {
     font-weight: bold;
 }
+
+.control-container {
+    width: 6rem;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.control-button {
+    font-weight: bold;
+    width: 1rem;
+    height: 1rem;
+    color: grey;
+    font-size: 0.6rem;
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+}
+
 .word-container {
     display: flex;
     justify-content: space-around;
