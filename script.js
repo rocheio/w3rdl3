@@ -197,6 +197,18 @@ function shiftSingleTileDown(row, col) {
     }
 }
 
+function random25Moves() {
+    // Take 25 moves in a row randomly (speeds up development and early game)
+    // Return early and take no action if less than 25 moves left in game.
+    if (GAME_MOVES < 25) return;
+
+    possibleActions = [shiftTilesLeft, shiftTilesRight, shiftTilesUp, shiftTilesDown];
+    for (let i = 0; i < 25; i++) {
+        randIndex = randIntBetween(0, possibleActions.length)
+        possibleActions[randIndex]();
+    }
+}
+
 function moveTileToLocation(oldRow, oldCol, newRow, newCol) {
     tile = TILES[oldRow][oldCol];
     TILES[oldRow][oldCol] = null;
@@ -384,6 +396,7 @@ function bindUIElementActions() {
     document.getElementById("control-arrow-right").addEventListener("click", shiftTilesRight);
     document.getElementById("control-arrow-up").addEventListener("click", shiftTilesUp);
     document.getElementById("control-arrow-down").addEventListener("click", shiftTilesDown);
+    document.getElementById("control-random-25").addEventListener("click", random25Moves);
 }
 
 function updateMoveCountUI() {
@@ -462,4 +475,4 @@ window.onload = function(){
 
 // TODO: "Random 25 turns" button
 // TODO: CSS `Z` tile should have like a red color / border?
-// CSS: Vowels should have some pretty border to call em out?
+// TODO: CSS Vowels should have some pretty border to call em out?
