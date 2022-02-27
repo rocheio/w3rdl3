@@ -270,22 +270,27 @@ function toggleWordInputField() {
     // Normalize the WORD so we only need to check upper case
     word = wordInput.value.trim().toUpperCase();
 
-    if (word.length == 5
-            && !GAME_WORDS_SCORED.includes(word)
-            && validWordOnGameBoard(word)
-            && FIVE_LETTER_WORDS.includes(word.toLowerCase())) {
-        // Successful word!
-        console.log(`Valid 5-letter word in game board: '${word}'`);
-        GAME_SCORE += 1;
-        updateScoreUI();
-        GAME_WORDS_SCORED.push(word)
-        wordInput.value = '';
-        wordInput.blur();
+    if (!wordIsValidForScoring(word)) {
+        // Add an error class which triggers CSS animations
+        wordInput.classList.add("error");
         return;
     }
 
-    // Add an error class which triggers CSS animations
-    wordInput.classList.add("error");
+    // console.log(`Valid 5-letter word in game board: '${word}'`);
+    GAME_SCORE += 1;
+    updateScoreUI();
+    GAME_WORDS_SCORED.push(word)
+    wordInput.value = '';
+    wordInput.blur();
+}
+
+function wordIsValidForScoring(word) {
+    // Return true if a word is currently valid for scoring points in this game
+    if (word.length != 5) return false;
+    if (GAME_WORDS_SCORED.includes(word)) return false;
+    if (!validWordOnGameBoard(word)) return false;
+    if (!FIVE_LETTER_WORDS.includes(word.toLowerCase())) return false;
+    return true;
 }
 
 function letterCountsOnGameBoard() {
