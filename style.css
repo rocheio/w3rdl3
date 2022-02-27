@@ -98,3 +98,18 @@ ul {
 #modal-game-over h1 {
     font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
+#game-over-summary {
+    margin-bottom: 2rem;
+}
+#game-over-word-list {
+    display: flex;
+    margin-bottom: 2rem;
+}
+.game-over-word {
+    color: black;
+    font-weight: bold;
+    background-color: aqua;
+    margin: 0.5rem;
+    padding: 0.1rem 0.3rem;
+    border-radius: 1rem;
+}

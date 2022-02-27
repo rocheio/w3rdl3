@@ -8,6 +8,7 @@ const TILE_SIZE = 2.1;
 var TILES = []
 
 // Each game tracks moves taken, a numerical score, and words scored with
+const MAX_GAME_MOVES = 125;
 var GAME_MOVES = 0;
 var GAME_SCORE = 0;
 var GAME_WORDS_SCORED = [];
@@ -376,7 +377,7 @@ function updateScoreUI() {
 
 function resetGameStateToStartingPoint() {
     TILES = newTileGrid();
-    GAME_MOVES = 125;
+    GAME_MOVES = MAX_GAME_MOVES;
     GAME_SCORE = 0;
     GAME_WORDS_SCORED = [];
     updateMoveCountUI();
@@ -387,7 +388,19 @@ function resetGameStateToStartingPoint() {
 }
 
 function triggerGameOverModal() {
-    // TODO: Show the points scored and the list of `GAME_WORDS_SCORED`
+    // Show a summary of the score / moves in this game
+    wordPlurality = GAME_SCORE == 1 ? "word" : "words";
+    message = `${GAME_SCORE} ${wordPlurality} in ${MAX_GAME_MOVES} moves`;
+    document.getElementById("game-over-summary").innerHTML = message;
+    // Show a "word cloud" of all the words scored in this game
+    document.getElementById("game-over-word-list").innerHTML = "";
+    for (var i = 0; i < GAME_WORDS_SCORED.length; i++) {
+        elem = document.createElement("div");
+        elem.className = "game-over-word";
+        elem.innerHTML = GAME_WORDS_SCORED[i];
+        document.getElementById("game-over-word-list").appendChild(elem);
+    }
+    // Unhide the modal
     document.getElementById("modal-game-over").style.display = "flex";
 }
 
