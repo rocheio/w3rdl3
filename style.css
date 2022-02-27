@@ -1,14 +1,19 @@
 ul {
     padding-left: 1rem;
 }
-.title {
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
+
+body {
+    font-family: "Comic Sans MS", "Comic Sans", sans-serif;
 }
+
 .game-container {
-    height: 15rem;
-    width: 15rem;
-    margin: 0 auto;
+    margin: 0 1rem;
 }
+
+.title {
+    text-align: center;
+}
+
 .grid-container {
     display: flex;
     flex-direction: column;
@@ -16,15 +21,18 @@ ul {
     width: 12rem;
     margin: 0.1rem auto;
 }
+
 .grid-row {
     display: flex;
 }
+
 .grid-cell {
     height: 2rem;
     width: 2rem;
     border: 1px solid lightgrey;
     margin: 2px;
 }
+
 .tile {
     display: inline-flex;
     vertical-align: middle;
@@ -35,22 +43,25 @@ ul {
     width: 2rem;
     text-align: center;
     font-weight: bold;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
     color: white;
     border: 2px solid lightgrey;
     background-color: grey;
 }
+
 .tile-a {
     border-color: lime;
     background-color: green;
 }
+
 .tile-b {
     border-color: yellow;
     background-color: gold;
 }
+
 #tile-container {
     display: inline;
 }
+
 .instructions {
     font-size: 0.6rem;
 }
@@ -61,11 +72,12 @@ ul {
     display: flex;
     justify-content: space-between;
     font-size: 0.6rem;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
+
 .stats-container label {
     color: grey;
 }
+
 .stats-container span {
     font-weight: bold;
 }
@@ -77,6 +89,7 @@ ul {
     display: flex;
     justify-content: space-between;
 }
+
 .control-button {
     font-weight: bold;
     width: 1rem;
@@ -93,6 +106,7 @@ ul {
     display: flex;
     justify-content: space-around;
 }
+
 #word-input {
     height: 1rem;
     width: 5rem;
@@ -101,9 +115,11 @@ ul {
     text-align: center;
     text-transform: uppercase;
 }
+
 #word-input:focus {
     outline: none;
 }
+
 #modal-game-over {
     position: absolute;
     display: flex;
@@ -119,16 +135,16 @@ ul {
     opacity: 0.9;
     color: white;
 }
-#modal-game-over h1 {
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-}
+
 #game-over-summary {
     margin-bottom: 2rem;
 }
+
 #game-over-word-list {
     display: flex;
     margin-bottom: 2rem;
 }
+
 .game-over-word {
     color: black;
     font-weight: bold;
@@ -143,9 +159,21 @@ ul {
     animation: shake 0.2s ease-in-out 0s 2;
     box-shadow: 0 0 0.15em red;
 }
+
 @keyframes shake {
-    0% { margin-left: 0rem; }
-    25% { margin-left: 0.5rem; }
-    75% { margin-left: -0.5rem; }
-    100% { margin-left: 0rem; }
+    0% {
+        margin-left: 0rem;
+    }
+
+    25% {
+        margin-left: 0.5rem;
+    }
+
+    75% {
+        margin-left: -0.5rem;
+    }
+
+    100% {
+        margin-left: 0rem;
+    }
 }
