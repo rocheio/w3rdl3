@@ -1,7 +1,8 @@
-/* Prevent mobile browsers from bouncing / overscrolling on page */
+/* Prevent mobile browsers from bouncing / overscrolling / tap-zooming on page */
 html,body {
     overflow: hidden;
     overscroll-behavior-y: none;
+    touch-action: manipulation;
 }
 
 ul {

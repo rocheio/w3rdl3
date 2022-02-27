@@ -12,7 +12,7 @@ Feel free to submit feature and pull requests, but at heart this is a personal p
 
 ## Development
 
-Just open `index.html` in your browser of choice. No other dependencies should be required.
+Just open `app/index.html` in your browser of choice. No other dependencies should be required.
 
 ## Feature Requests / Ideas
 
