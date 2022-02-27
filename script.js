@@ -90,9 +90,6 @@ function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {
     if (l1 == "A" && l2 == "A") return false;
     // `B` tiles do not combine together
     if (l1 == "B" && l2 == "B") return false;
-    // Higher-order tiles do not combine together
-    // TODO: SHOULD we allow higher value letters to combine?
-    if (l1 != "A" && l1 != "B" && l2 != "A" && l2 != "B") return false;
     // Tiles that sum to more than `Z` cannot be combined
     if (addLetters(l1, l2) == null) return false;
     // TODO: If either tile has been combined already return false
@@ -235,7 +232,7 @@ function spawnNewTileAtRandomEmptyLocation() {
 
 function triggerPostActionSequence() {
     // Roll a chance to spawn a new A or B tile in empty space
-    newSquareSpawnChance = 0.3;
+    newSquareSpawnChance = 0.4;
     if (Math.random() < newSquareSpawnChance) {
         spawnNewTileAtRandomEmptyLocation();
     }
@@ -409,3 +406,7 @@ window.onload = function(){
 }
 
 // TODO: "Random 25 turns" button
+// TODO: CSS `Z` tile should have like a red color / border?
+// CSS: Vowels should have some pretty border to call em out?
+// TODO: `Share` button on the game over screen with emojis and shit
+// `w3rdl3.com - 25 words in 125 moves - :finger_guns:`
