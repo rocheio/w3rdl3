@@ -199,8 +199,8 @@ function shiftSingleTileDown(row, col) {
 
 function random25Moves() {
     // Take 25 moves in a row randomly (speeds up development and early game)
-    // Return early and take no action if less than 25 moves left in game.
-    if (GAME_MOVES < 25) return;
+    // Return early and take no action if this would cause an immediate loss.
+    if (GAME_MOVES <= 25) return;
 
     possibleActions = [shiftTilesLeft, shiftTilesRight, shiftTilesUp, shiftTilesDown];
     for (let i = 0; i < 25; i++) {
@@ -345,29 +345,18 @@ function preventDefaultKeydownActions() {
 }
 
 function bindAppKeyEvents() {
+    let keyupToActionLookup = {
+        "ArrowLeft": shiftTilesLeft,
+        "ArrowRight": shiftTilesRight,
+        "ArrowUp": shiftTilesUp,
+        "ArrowDown": shiftTilesDown,
+        "Enter": toggleWordInputField,
+    }
     window.addEventListener('keyup', function(event) {
-        // TODO: if GAME_MOVES == 0 then take no action (duplicate entry at end)
-
-        if (event.key == "ArrowLeft") {
-            shiftTilesLeft();
-            return;
-        }
-        if (event.key == "ArrowRight") {
-            shiftTilesRight();
-            return;
-        }
-        if (event.key == "ArrowUp") {
-            shiftTilesUp();
-            return;
-        }
-        if (event.key == "ArrowDown") {
-            shiftTilesDown();
-            return;
-        }
-        if (event.key == "Enter") {
-            toggleWordInputField();
-            return;
-        }
+        action = keyupToActionLookup[event.key];
+        if (action == undefined) return;
+        if (GAME_MOVES == 0) return;  // Submission after game over
+        action();
     });
 
     // Detect alphabet keys typed when word input is not active
@@ -456,7 +445,6 @@ function triggerGameOverModal() {
 }
 
 function copyShareLinkToClipboard() {
-    // TODO: Add emoji-lookup to message (i.e. 1 == :one:, 10 == :sunglasses:, 20 == :fire:)
     wordList = ""
     for (let i = 0; i < GAME_WORDS_SCORED.length; i++) {
         if (wordList.length != 0) wordList += " > ";
@@ -477,7 +465,3 @@ window.onload = function(){
     bindUIElementActions();
     resetGameStateToStartingPoint();
 }
-
-// TODO: "Random 25 turns" button
-// TODO: CSS `Z` tile should have like a red color / border?
-// TODO: CSS Vowels should have some pretty border to call em out?
