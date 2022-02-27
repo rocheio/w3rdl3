@@ -5,13 +5,13 @@ const TILE_SIZE = 2.1;
 // The game space is a 5x5 grid of tiles that can not overlap
 // Values are `null` when no tile exists or a <div> element
 // This global is initialized on each window load
-var TILES = []
+let TILES = []
 
 // Each game tracks moves taken, a numerical score, and words scored with
 const MAX_GAME_MOVES = 125;
-var GAME_MOVES = 0;
-var GAME_SCORE = 0;
-var GAME_WORDS_SCORED = [];
+let GAME_MOVES = 0;
+let GAME_SCORE = 0;
+let GAME_WORDS_SCORED = [];
 
 // General utility functions
 function randIntBetween(min, max) {
@@ -39,9 +39,9 @@ function isLetter(value) {
 
 function newTileGrid() {
     grid = new Array(5);
-    for (var row = 0; row < 5; row++) {
+    for (let row = 0; row < 5; row++) {
         grid[row] = new Array(5);
-        for (var col = 0; col < 5; col++) {
+        for (let col = 0; col < 5; col++) {
             grid[row][col] = null;
         }
     }
@@ -51,7 +51,7 @@ function newTileGrid() {
 function getColumnOfTiles(index) {
     // Return a virtual column of tiles from the current game state
     arr = new Array(5);
-    for (var row = 0; row < 5; row++) {
+    for (let row = 0; row < 5; row++) {
         arr[row] = TILES[row][index];
     }
     return arr;
@@ -59,7 +59,7 @@ function getColumnOfTiles(index) {
 
 function createNewTileAt(row, col, value) {
     // console.log(`creating tile (${row}, ${col})`);
-    var tile = document.createElement("div");
+    let tile = document.createElement("div");
     tile.innerHTML = value;
     tile.className = "tile";
     if (value == "A") {
@@ -93,8 +93,6 @@ function tilesMayCombine(rowSrc, colSrc, rowDest, colDest) {
     if (l1 == "B" && l2 == "B") return false;
     // Tiles that sum to more than `Z` cannot be combined
     if (addLetters(l1, l2) == null) return false;
-    // TODO: If either tile has been combined already return false
-    // (temp set in memory of `tilesCombinedThisTurn` that resets in post-op)
     return true;
 }
 
@@ -207,8 +205,8 @@ function randomEmptyLocationInGrid() {
     // Return random (row, col) coordinates of an empty space in the grid.
     // Return null if no such location exists
     emptySpaces = []
-    for (var row = 0; row < 5; row++) {
-        for (var col = 0; col < 5; col++) {
+    for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 5; col++) {
             if (TILES[row][col] == null) {
                 emptySpaces.push([row, col]);
             }
@@ -246,15 +244,15 @@ function triggerPostActionSequence() {
 }
 
 function toggleWordInputField() {
-    elem = document.getElementById("word-input");
+    let wordInput = document.getElementById("word-input");
 
-    if (document.activeElement != elem) {
-        elem.focus();
+    if (document.activeElement != wordInput) {
+        wordInput.focus();
         return;
     }
 
     // Normalize the WORD so we only need to check upper case
-    word = elem.value.trim().toUpperCase();
+    word = wordInput.value.trim().toUpperCase();
 
     if (word.length == 5
             && validWordOnGameBoard(word)
@@ -269,15 +267,15 @@ function toggleWordInputField() {
         console.log(`Invalid 5-letter word in game board: '${word}'`);
     }
 
-    elem.value = '';
-    elem.blur();
+    wordInput.value = '';
+    wordInput.blur();
 }
 
 function letterCountsOnGameBoard() {
     // Return a map of all letters on the game board to their counts
-    var allLetters = {};
-    for (var row = 0; row < 5; row++) {
-        for (var col = 0; col < 5; col++) {
+    let allLetters = {};
+    for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 5; col++) {
             if (TILES[row][col] == null) continue;
 
             letter = TILES[row][col].innerHTML;
@@ -291,8 +289,8 @@ function letterCountsOnGameBoard() {
 }
 
 function letterCountsOfWord(word) {
-    var allLetters = {};
-    for (var i = 0; i < word.length; i++) {
+    let allLetters = {};
+    for (let i = 0; i < word.length; i++) {
         letter = word[i];
         if (allLetters[letter] == undefined) {
             allLetters[letter] = 0;
@@ -304,8 +302,8 @@ function letterCountsOfWord(word) {
 
 function validWordOnGameBoard(word) {
     // Return True if word is 5 letters, in the dictionary, and contiguous on the board
-    var allLetters = letterCountsOnGameBoard();
-    var wordLetters = letterCountsOfWord(word);
+    let allLetters = letterCountsOnGameBoard();
+    let wordLetters = letterCountsOfWord(word);
     // console.log(`All letters on board: ${Object.keys(allLetters)} vs input: ${Object.keys(wordLetters)}`);
     for (letter in wordLetters) {
         if (allLetters[letter] == undefined || wordLetters[letter] > allLetters[letter]) {
@@ -394,7 +392,7 @@ function triggerGameOverModal() {
     document.getElementById("game-over-summary").innerHTML = message;
     // Show a "word cloud" of all the words scored in this game
     document.getElementById("game-over-word-list").innerHTML = "";
-    for (var i = 0; i < GAME_WORDS_SCORED.length; i++) {
+    for (let i = 0; i < GAME_WORDS_SCORED.length; i++) {
         elem = document.createElement("div");
         elem.className = "game-over-word";
         elem.innerHTML = GAME_WORDS_SCORED[i];
