@@ -14,7 +14,7 @@ body {
 
 .game-container {
     margin: 0 auto;
-    max-width: 22rem;
+    max-width: 24rem;
 }
 
 .title {
@@ -52,8 +52,8 @@ body {
 
 .grid-cell {
     flex: 1;
-    height: 59px;
-    width: 59px;
+    height: 4rem;
+    width: 4rem;
     border: 1px solid grey;
     margin: 2px;
 }
@@ -64,8 +64,8 @@ body {
     justify-content: center;
     align-items: center;
     position: absolute;
-    height: 60px;
-    width: 60px;
+    height: 4rem;
+    width: 4rem;
     text-align: center;
     font-size: 2rem;
     font-weight: bold;

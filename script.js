@@ -1,18 +1,18 @@
 // Styling constants for moving the tiles with CSS transforms
-// TODO: Calculate this at game init time instead of using magic numbers
-const SPACE_BETWEEN_TILES = 4;
-const TILE_SIZE = 61;
+// This is a rough estimate, and gets re-calculated each game init
+var PX_TILE_MARGIN = 5;
+var PX_TILE_SIZE = 65;
 
 // The game space is a 5x5 grid of tiles that can not overlap
 // Values are `null` when no tile exists or a <div> element
 // This global is initialized on each window load
-let TILES = []
+var TILES = []
 
 // Each game tracks moves taken, a numerical score, and words scored with
 const MAX_GAME_MOVES = 125;
-let GAME_MOVES = 0;
-let GAME_SCORE = 0;
-let GAME_WORDS_SCORED = [];  // NOTE: Use array (not set) to preserve order words were decided
+var GAME_MOVES = 0;
+var GAME_SCORE = 0;
+var GAME_WORDS_SCORED = [];  // NOTE: Use array (not set) to preserve order words were decided
 
 // General utility functions
 function randIntBetween(min, max) {
@@ -77,8 +77,8 @@ function createNewTileAt(row, col, value) {
 
 function setTileTransform(tile, row, col) {
     // Adjust tile position via overloading style tag
-    absX = TILE_SIZE * row + SPACE_BETWEEN_TILES * row;
-    absY = TILE_SIZE * col + SPACE_BETWEEN_TILES * col;
+    absX = PX_TILE_SIZE * row + PX_TILE_MARGIN * row;
+    absY = PX_TILE_SIZE * col + PX_TILE_MARGIN * col;
     tile.style.transform = `translate(${absY}px, ${absX}px)`;
 }
 
@@ -411,14 +411,23 @@ function updateScoreUI() {
     document.getElementById("score-value").innerHTML = GAME_SCORE;
 }
 
+function calculateAndSetTilePixelSizes() {
+    // Calculate tile size / margin based on current pixel widths of the grid
+    PX_TILE_MARGIN = 5;
+    PX_TILE_SIZE = 65;
+}
+
 function resetGameStateToStartingPoint() {
     TILES = newTileGrid();
     GAME_MOVES = MAX_GAME_MOVES;
     GAME_SCORE = 0;
     GAME_WORDS_SCORED = [];
+    calculateAndSetTilePixelSizes();
+
     updateMoveCountUI();
     updateScoreUI();
     hideAllModals();
+
     document.getElementById("tile-container").innerHTML = "";
     spawnNewTileAtRandomEmptyLocation();
 }
