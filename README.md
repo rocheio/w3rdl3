@@ -4,11 +4,11 @@ https://w3rdl3.com
 
 [Wordle](https://www.nytimes.com/games/wordle/index.html) and [Threes](https://asherv.com/threes/) combined. Taking the "Wordle clone wars" another step further.
 
-## License / Usage Restrictions
+## About
 
-This is a parody game written hastily in a weekend by one person and heavily inspired by the source material linked above. The code found here is available under the MIT license.
+This is a parody game written in a weekend and heavily inspired by the source material linked above. The code found here is available under the MIT license. Do whatever you want with it.
 
-Do whatever you want with it, but understand it is unlikely to be updated further.
+Feel free to submit feature and pull requests, but at heart this is a personal project for fun and there is no long-term guarantee of maintenance.
 
 ## Development
 
@@ -19,3 +19,4 @@ Just open `index.html` in your browser of choice. No other dependencies should b
 - [ ] `X`, `Y`, `Z` tiles are considered "bad" and have a red color or border to match
 - [ ] Vowel tiles are considered "good" and have a pretty color or border to match
 - [ ] Scoring / sharing uses emojis
+- [ ] More feedback / celebration when a word is guessed correctly

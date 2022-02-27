@@ -1,6 +1,6 @@
 // Styling constants for moving the tiles with CSS transforms
 // This is a rough estimate, and gets re-calculated each game init
-var PX_TILE_MARGIN = 5;
+var PX_TILE_MARGIN = 4;
 var PX_TILE_SIZE = 65;
 
 // The game space is a 5x5 grid of tiles that can not overlap
@@ -407,7 +407,6 @@ function updateMoveCountUI() {
 }
 
 function updateScoreUI() {
-    // TODO: On increase some sort of nice animation
     document.getElementById("score-value").innerHTML = GAME_SCORE;
 }
 
@@ -417,7 +416,7 @@ function calculateAndSetTilePixelSizes() {
     sampleRow = document.getElementsByClassName("grid-row")[0];
     PX_TILE_SIZE = sampleTile.offsetWidth;
     PX_TILE_MARGIN = (sampleRow.offsetWidth / 5) - PX_TILE_SIZE;
-    console.log(`Virtual tile size set to PX_TILE_SIZE:${PX_TILE_SIZE} and PX_TILE_MARGIN:${PX_TILE_MARGIN}`);
+    // console.log(`Virtual tile size set to PX_TILE_SIZE:${PX_TILE_SIZE} and PX_TILE_MARGIN:${PX_TILE_MARGIN}`);
 }
 
 function resetGameStateToStartingPoint() {
