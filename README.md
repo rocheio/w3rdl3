@@ -1,5 +1,7 @@
 # w3rdl3
 
+https://w3rdl3.com
+
 [Wordle](https://www.nytimes.com/games/wordle/index.html) and [Threes](https://asherv.com/threes/) combined. Taking the "Wordle clone wars" another step further.
 
 ## License / Usage Restrictions
