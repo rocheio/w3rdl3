@@ -26,6 +26,7 @@ body {
     display: flex;
     justify-content: space-between;
     font-size: 0.8rem;
+    margin: 0 0.3rem;
 }
 
 .stats-container label {
