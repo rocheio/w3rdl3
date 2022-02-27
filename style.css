@@ -80,6 +80,9 @@ ul {
     text-align: center;
     text-transform: uppercase;
 }
+#word-input:focus {
+    outline: none;
+}
 #modal-game-over {
     position: absolute;
     display: flex;
@@ -114,10 +117,10 @@ ul {
     border-radius: 1rem;
 }
 
-/* Shaking animation on word error input */
-#word-input .error {
+/* Shaking animation on word input */
+#word-input.error {
     animation: shake 0.2s ease-in-out 0s 2;
-    box-shadow: 0 0 0.5em red;
+    box-shadow: 0 0 0.15em red;
 }
 @keyframes shake {
     0% { margin-left: 0rem; }

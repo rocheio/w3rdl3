@@ -262,13 +262,13 @@ function toggleWordInputField() {
         GAME_SCORE += 1;
         updateScoreUI();
         GAME_WORDS_SCORED.push(word)
-    } else {
-        // TODO: Shake red to indicate error
-        console.log(`Invalid 5-letter word in game board: '${word}'`);
+        wordInput.value = '';
+        wordInput.blur();
+        return;
     }
 
-    wordInput.value = '';
-    wordInput.blur();
+    // Add an error class which triggers CSS animations
+    wordInput.classList.add("error");
 }
 
 function letterCountsOnGameBoard() {
@@ -413,6 +413,9 @@ window.onload = function(){
     document.getElementById("button-new-game").addEventListener("click", function(){
         resetGameStateToStartingPoint();
     });
+    wordInput = document.getElementById("word-input")
+    wordInput.onchange = function(){ wordInput.classList.remove("error"); }
+    wordInput.addEventListener("input", function(){ wordInput.classList.remove("error"); });
     resetGameStateToStartingPoint();
 }
 
