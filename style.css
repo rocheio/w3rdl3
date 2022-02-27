@@ -1,3 +1,9 @@
+/* Prevent mobile browsers from bouncing / overscrolling on page */
+html,body {
+    overflow: hidden;
+    overscroll-behavior-y: none;
+}
+
 ul {
     padding-left: 1rem;
 }
