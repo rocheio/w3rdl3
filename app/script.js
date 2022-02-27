@@ -408,21 +408,18 @@ function bindDirectionalSwipeEvents() {
             // Prefer left/right swipes (when close to 45 degrees)
             if (yx <= touchLimit) {
                 if (x < 0) {
-                    console.log("left");
+                    shiftTilesLeft();
                 } else {
-                    console.log("right");
+                    shiftTilesRight();
                 }
             // Check up/down swipes
             } else if (xy <= touchLimit) {
                 if (y < 0) {
-                    console.log("up");
+                    shiftTilesUp();
                 } else {
-                    console.log("down");
+                    shiftTilesDown();
                 }
             }
-        } else {
-            // Too short to be a swipe, allow UI to handle action if needed
-            console.log("tap");
         }
     }
 }
