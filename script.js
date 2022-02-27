@@ -366,6 +366,20 @@ function bindAppKeyEvents() {
     });
 }
 
+function bindUIElementActions() {
+    document.getElementById("button-new-game").addEventListener("click", function(){
+        resetGameStateToStartingPoint();
+    });
+
+    document.getElementById("button-share").addEventListener("click", function(){
+        copyShareLinkToClipboard();
+    });
+
+    wordInput = document.getElementById("word-input")
+    wordInput.onchange = function(){ wordInput.classList.remove("error"); }
+    wordInput.addEventListener("input", function(){ wordInput.classList.remove("error"); });
+}
+
 function updateMoveCountUI() {
     let movesValue = document.getElementById("moves-value");
     movesValue.innerHTML = GAME_MOVES;
@@ -395,11 +409,14 @@ function resetGameStateToStartingPoint() {
     spawnNewTileAtRandomEmptyLocation();
 }
 
+function gameScoreMessageText() {
+    wordPlurality = GAME_SCORE == 1 ? "word" : "words";
+    return `${GAME_SCORE} ${wordPlurality} in ${MAX_GAME_MOVES} moves`;
+}
+
 function triggerGameOverModal() {
     // Show a summary of the score / moves in this game
-    wordPlurality = GAME_SCORE == 1 ? "word" : "words";
-    message = `${GAME_SCORE} ${wordPlurality} in ${MAX_GAME_MOVES} moves`;
-    document.getElementById("game-over-summary").innerHTML = message;
+    document.getElementById("game-over-summary").innerHTML = gameScoreMessageText();
     // Show a "word cloud" of all the words scored in this game
     document.getElementById("game-over-word-list").innerHTML = "";
     for (let i = 0; i < GAME_WORDS_SCORED.length; i++) {
@@ -408,8 +425,21 @@ function triggerGameOverModal() {
         elem.innerHTML = GAME_WORDS_SCORED[i];
         document.getElementById("game-over-word-list").appendChild(elem);
     }
+    // Only show the `Share` button if the user got a word
+    document.getElementById("button-share").style.display = GAME_SCORE == 0 ? "none" : "block";
     // Unhide the modal
     document.getElementById("modal-game-over").style.display = "flex";
+}
+
+function copyShareLinkToClipboard() {
+    // TODO: Add emoji-lookup to message (i.e. 1 == :one:, 10 == :sunglasses:, 20 == :fire:)
+    wordList = ""
+    for (let i = 0; i < GAME_WORDS_SCORED.length; i++) {
+        if (wordList.length != 0) wordList += " > ";
+        wordList += GAME_WORDS_SCORED[i];
+    }
+    shareText = `w3rdl3.com - ${gameScoreMessageText()} - ${wordList}`
+    navigator.clipboard.writeText(shareText);
 }
 
 function hideAllModals() {
@@ -420,17 +450,10 @@ function hideAllModals() {
 window.onload = function(){
     preventDefaultKeydownActions();
     bindAppKeyEvents();
-    document.getElementById("button-new-game").addEventListener("click", function(){
-        resetGameStateToStartingPoint();
-    });
-    wordInput = document.getElementById("word-input")
-    wordInput.onchange = function(){ wordInput.classList.remove("error"); }
-    wordInput.addEventListener("input", function(){ wordInput.classList.remove("error"); });
+    bindUIElementActions();
     resetGameStateToStartingPoint();
 }
 
 // TODO: "Random 25 turns" button
 // TODO: CSS `Z` tile should have like a red color / border?
 // CSS: Vowels should have some pretty border to call em out?
-// TODO: `Share` button on the game over screen with emojis and shit
-// `w3rdl3.com - 25 words in 125 moves - :finger_guns:`
