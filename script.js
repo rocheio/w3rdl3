@@ -413,8 +413,11 @@ function updateScoreUI() {
 
 function calculateAndSetTilePixelSizes() {
     // Calculate tile size / margin based on current pixel widths of the grid
-    PX_TILE_MARGIN = 5;
-    PX_TILE_SIZE = 65;
+    sampleTile = document.getElementsByClassName("grid-cell")[0];
+    sampleRow = document.getElementsByClassName("grid-row")[0];
+    PX_TILE_SIZE = sampleTile.offsetWidth;
+    PX_TILE_MARGIN = (sampleRow.offsetWidth / 5) - PX_TILE_SIZE;
+    console.log(`Virtual tile size set to PX_TILE_SIZE:${PX_TILE_SIZE} and PX_TILE_MARGIN:${PX_TILE_MARGIN}`);
 }
 
 function resetGameStateToStartingPoint() {
