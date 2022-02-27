@@ -324,6 +324,8 @@ function preventDefaultKeydownActions() {
 
 function bindAppKeyEvents() {
     window.addEventListener('keyup', function(event) {
+        // TODO: if GAME_MOVES == 0 then take no action (duplicate entry at end)
+
         if (event.key == "ArrowLeft") {
             shiftTilesLeft();
             triggerPostActionSequence();
@@ -364,8 +366,15 @@ function bindAppKeyEvents() {
 }
 
 function updateMoveCountUI() {
-    // TODO: On 25 turn yellow and 5 turn red, normal is black?
-    document.getElementById("moves-value").innerHTML = GAME_MOVES;
+    let movesValue = document.getElementById("moves-value");
+    movesValue.innerHTML = GAME_MOVES;
+    if (GAME_MOVES <= 5) {
+        movesValue.style.color = "red";
+    } else if (GAME_MOVES <= 25) {
+        movesValue.style.color = "orange";
+    } else {
+        movesValue.style.color = "black";
+    }
 }
 
 function updateScoreUI() {
