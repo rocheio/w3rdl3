@@ -78,6 +78,7 @@ ul {
     border: 1px solid lightgrey;
     color: grey;
     text-align: center;
+    text-transform: uppercase;
 }
 #modal-game-over {
     position: absolute;

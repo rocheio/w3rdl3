@@ -225,9 +225,8 @@ function randomEmptyLocationInGrid() {
 
 function spawnNewTileAtRandomEmptyLocation() {
     coords = randomEmptyLocationInGrid();
-    // TODO: Reset game, etc.
     if (coords == null) {
-        alert("Game over");
+        triggerGameOverModal();
         return;
     }
     value = Math.random() < 0.5 ? "A" : "B";
@@ -262,12 +261,16 @@ function toggleWordInputField() {
     if (word.length == 5
             && validWordOnGameBoard(word)
             && FIVE_LETTER_WORDS.includes(word.toLowerCase())) {
+        // Successful word!
         console.log(`Valid 5-letter word in game board: '${word}'`);
-        // TODO: Add points, display word in a running list somewhere?
-        return;
+        GAME_SCORE += 1;
+        updateScoreUI();
+        GAME_WORDS_SCORED.push(word)
+    } else {
+        // TODO: Shake red to indicate error
+        console.log(`Invalid 5-letter word in game board: '${word}'`);
     }
 
-    console.log(`Invalid 5-letter word in game board: '${word}'`);
     elem.value = '';
     elem.blur();
 }
@@ -365,7 +368,13 @@ function bindAppKeyEvents() {
 }
 
 function updateMoveCountUI() {
+    // TODO: On 25 turn yellow and 5 turn red, normal is black?
     document.getElementById("moves-value").innerHTML = GAME_MOVES;
+}
+
+function updateScoreUI() {
+    // TODO: On increase some sort of nice animation
+    document.getElementById("score-value").innerHTML = GAME_SCORE;
 }
 
 function resetGameStateToStartingPoint() {
@@ -374,12 +383,14 @@ function resetGameStateToStartingPoint() {
     GAME_SCORE = 0;
     GAME_WORDS_SCORED = [];
     updateMoveCountUI();
+    updateScoreUI();
     hideAllModals();
     document.getElementById("tile-container").innerHTML = "";
     spawnNewTileAtRandomEmptyLocation();
 }
 
 function triggerGameOverModal() {
+    // TODO: Show the points scored and the list of `GAME_WORDS_SCORED`
     document.getElementById("modal-game-over").style.display = "flex";
 }
 
