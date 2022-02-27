@@ -14,6 +14,14 @@ var GAME_MOVES = 0;
 var GAME_SCORE = 0;
 var GAME_WORDS_SCORED = [];  // NOTE: Use array (not set) to preserve order words were decided
 
+// Touch tracking for swipe support
+let touchstartX = 0;
+let touchstartY = 0;
+let touchendX = 0;
+let touchendY = 0;
+let touchThreshold = Math.max(1,Math.floor(0.01 * (window.innerWidth || document.body.clientWidth)));
+const touchLimit = Math.tan(45 * 1.5 / 180 * Math.PI);
+
 // General utility functions
 function randIntBetween(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -378,6 +386,47 @@ function bindAppKeyEvents() {
     });
 }
 
+function bindDirectionalSwipeEvents() {
+    // Bind classic "finger swipe" touch movements to direction actions
+    let gameContainer = document.getElementsByClassName("game-container")[0];
+    gameContainer.addEventListener('touchstart', function(event) {
+        touchstartX = event.changedTouches[0].screenX;
+        touchstartY = event.changedTouches[0].screenY;
+    }, false);
+    gameContainer.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        touchendY = event.changedTouches[0].screenY;
+        handleGesture();
+    }, false);
+
+    function handleGesture() {
+        let x = touchendX - touchstartX;
+        let y = touchendY - touchstartY;
+        let xy = Math.abs(x / y);
+        let yx = Math.abs(y / x);
+        if (Math.abs(x) > touchThreshold || Math.abs(y) > touchThreshold) {
+            // Prefer left/right swipes (when close to 45 degrees)
+            if (yx <= touchLimit) {
+                if (x < 0) {
+                    console.log("left");
+                } else {
+                    console.log("right");
+                }
+            // Check up/down swipes
+            } else if (xy <= touchLimit) {
+                if (y < 0) {
+                    console.log("up");
+                } else {
+                    console.log("down");
+                }
+            }
+        } else {
+            // Too short to be a swipe, allow UI to handle action if needed
+            console.log("tap");
+        }
+    }
+}
+
 function bindUIElementActions() {
     document.getElementById("button-new-game").addEventListener("click", function(){
         resetGameStateToStartingPoint();
@@ -479,6 +528,7 @@ function hideAllModals() {
 window.onload = function(){
     preventDefaultKeydownActions();
     bindAppKeyEvents();
+    bindDirectionalSwipeEvents();
     bindUIElementActions();
     resetGameStateToStartingPoint();
 }
