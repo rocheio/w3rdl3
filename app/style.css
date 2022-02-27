@@ -133,7 +133,7 @@ body {
 }
 
 #word-input {
-    margin-top: 2rem;
+    margin-top: 0.5rem;
     height: 2.5rem;
     width: 10rem;
     border: 2px solid lightgrey;
