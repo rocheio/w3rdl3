@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  w3rdl3:
+    image: w3rdl3:latest
+    expose:
+      - 80
+    restart: always
+    environment:
+      VIRTUAL_HOST: w3rdl3.com,www.w3rdl3.com
+      LETSENCRYPT_HOST: w3rdl3.com,www.w3rdl3.com
+      LETSENCRYPT_EMAIL: admin@w3rdl3.com
+    container_name: w3rdl3
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
