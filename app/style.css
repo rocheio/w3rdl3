@@ -5,10 +5,6 @@ html,body {
     touch-action: manipulation;
 }
 
-ul {
-    padding-left: 1rem;
-}
-
 body {
     font-family: "Comic Sans MS", "Comic Sans", sans-serif;
 }
@@ -20,6 +16,23 @@ body {
 
 .title {
     text-align: center;
+}
+
+.info-container {
+    position: relative;
+}
+
+.button-info {
+    position: absolute;
+    right: 0;
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.7rem;
+    margin: 0.3rem;
+    color: #BBB;
+    text-align: center;
+    border: none;
+    background-color: white;
 }
 
 .stats-container {
@@ -90,10 +103,6 @@ body {
     display: inline;
 }
 
-.instructions {
-    font-size: 0.6rem;
-}
-
 .control-container {
     margin: 0.5rem 2rem;
     display: flex;
@@ -136,7 +145,7 @@ body {
 
 #modal-game-over {
     position: absolute;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -148,6 +157,38 @@ body {
     background-color: black;
     opacity: 0.9;
     color: white;
+}
+
+#modal-information {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    background-color: black;
+    opacity: 0.9;
+    color: white;
+    padding-top: 1rem;
+}
+#information-container {
+    max-width: 30rem;
+}
+#information-container ul {
+    padding-left: 2rem;
+    font-size: 1.1rem;
+    font-family: sans-serif;
+    line-height: 1.8rem;
+}
+#information-container p {
+    font-family: sans-serif;
+    padding: 0 1rem;
+}
+#button-close-info-modal {
+    background-color: black;
 }
 
 #game-over-summary {

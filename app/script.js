@@ -443,6 +443,14 @@ function bindUIElementActions() {
     document.getElementById("control-arrow-up").addEventListener("click", shiftTilesUp);
     document.getElementById("control-arrow-down").addEventListener("click", shiftTilesDown);
     document.getElementById("control-random-25").addEventListener("click", random25Moves);
+
+    // Information modal toggling
+    document.getElementById("button-info").addEventListener("click", function(){
+        document.getElementById("modal-information").style.display = "flex";
+    });
+    document.getElementById("button-close-info-modal").addEventListener("click", function(){
+        document.getElementById("modal-information").style.display = "none";
+    });
 }
 
 function updateMoveCountUI() {
@@ -519,7 +527,7 @@ function copyShareLinkToClipboard() {
 
 function hideAllModals() {
     document.getElementById("modal-game-over").style.display = "none";
-    document.getElementById("modal-instructions").style.display = "none";
+    document.getElementById("modal-information").style.display = "none";
 }
 
 window.onload = function(){
