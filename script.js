@@ -1,6 +1,7 @@
 // Styling constants for moving the tiles with CSS transforms
-const SPACE_BETWEEN_TILES = 0.275;
-const TILE_SIZE = 2.1;
+// TODO: Calculate this at game init time instead of using magic numbers
+const SPACE_BETWEEN_TILES = 0.26;
+const TILE_SIZE = 3.75;
 
 // The game space is a 5x5 grid of tiles that can not overlap
 // Values are `null` when no tile exists or a <div> element
