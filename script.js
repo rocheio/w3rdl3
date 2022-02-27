@@ -451,7 +451,7 @@ function copyShareLinkToClipboard() {
         if (wordList.length != 0) wordList += " > ";
         wordList += GAME_WORDS_SCORED[i];
     }
-    shareText = `w3rdl3.com - ${gameScoreMessageText()} - ${wordList}`
+    shareText = `https://w3rdl3.com - ${gameScoreMessageText()} - ${wordList}`
     navigator.clipboard.writeText(shareText);
 }
 
