@@ -346,11 +346,16 @@ function preventDefaultKeydownActions() {
 }
 
 function bindAppKeyEvents() {
+    // Bind arrow keys, numpad arrows, and enter key
     let keyupToActionLookup = {
         "ArrowLeft": shiftTilesLeft,
+        "4": shiftTilesLeft,
         "ArrowRight": shiftTilesRight,
+        "6": shiftTilesRight,
         "ArrowUp": shiftTilesUp,
+        "8": shiftTilesUp,
         "ArrowDown": shiftTilesDown,
+        "2": shiftTilesDown,
         "Enter": toggleWordInputField,
     }
     window.addEventListener('keyup', function(event) {
