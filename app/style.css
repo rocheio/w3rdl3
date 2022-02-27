@@ -87,6 +87,7 @@ body {
     color: white;
     border: 2px solid lightgrey;
     background-color: grey;
+    transition: 0.2s ease;  /* Sliding animation on movement */
 }
 
 .tile-a {
