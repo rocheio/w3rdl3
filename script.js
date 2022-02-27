@@ -11,7 +11,7 @@ let TILES = []
 const MAX_GAME_MOVES = 125;
 let GAME_MOVES = 0;
 let GAME_SCORE = 0;
-let GAME_WORDS_SCORED = [];
+let GAME_WORDS_SCORED = [];  // NOTE: Use array (not set) to preserve order words were decided
 
 // General utility functions
 function randIntBetween(min, max) {
@@ -255,6 +255,7 @@ function toggleWordInputField() {
     word = wordInput.value.trim().toUpperCase();
 
     if (word.length == 5
+            && !GAME_WORDS_SCORED.includes(word)
             && validWordOnGameBoard(word)
             && FIVE_LETTER_WORDS.includes(word.toLowerCase())) {
         // Successful word!
