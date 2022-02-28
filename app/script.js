@@ -286,6 +286,7 @@ function toggleWordInputField() {
     }
 
     // console.log(`Valid 5-letter word in game board: '${word}'`);
+    wordInput.classList.add("success");
     GAME_SCORE += 1;
     updateScoreUI();
     GAME_WORDS_SCORED.push(word)
@@ -425,6 +426,12 @@ function bindDirectionalSwipeEvents() {
     }
 }
 
+function resetWordInputAnimations() {
+    let wordInput = document.getElementById("word-input");
+    wordInput.classList.remove("error");
+    wordInput.classList.remove("success");
+}
+
 function bindUIElementActions() {
     document.getElementById("button-new-game").addEventListener("click", function(){
         resetGameStateToStartingPoint();
@@ -434,9 +441,15 @@ function bindUIElementActions() {
         copyShareLinkToClipboard();
     });
 
+    // Word input error and success animations
     wordInput = document.getElementById("word-input")
-    wordInput.onchange = function(){ wordInput.classList.remove("error"); }
-    wordInput.addEventListener("input", function(){ wordInput.classList.remove("error"); });
+    wordInput.onchange = resetWordInputAnimations
+    wordInput.addEventListener("input", resetWordInputAnimations);
+
+    // Score reset animation
+    document.getElementById("score-value").onchange = function(){
+        document.getElementById("score-value").classList.remove("success");
+    }
 
     // Arrow buttons in UI
     document.getElementById("control-arrow-left").addEventListener("click", shiftTilesLeft);
@@ -467,7 +480,11 @@ function updateMoveCountUI() {
 }
 
 function updateScoreUI() {
-    document.getElementById("score-value").innerHTML = GAME_SCORE;
+    let scoreValue = document.getElementById("score-value");
+    scoreValue.innerHTML = GAME_SCORE;
+    if (GAME_SCORE != 0) {
+        scoreValue.classList.add("success");
+    }
 }
 
 function calculateAndSetTilePixelSizes() {

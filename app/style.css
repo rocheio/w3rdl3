@@ -213,10 +213,21 @@ body {
     border-radius: 1rem;
 }
 
-/* Shaking animation on word input */
+/* Animation on word input */
 #word-input.error {
     animation: shake 0.2s ease-in-out 0s 2;
     box-shadow: 0 0 0.15em red;
+}
+
+#word-input.success {
+    animation: jump 0.2s ease-in-out 0s 1;
+    box-shadow: 0 0 0.15em green;
+}
+
+/* Animation on score increase */
+#score-value.success {
+    animation: jump 0.2s ease-in-out 0s 2;
+    color: 0 0 0.15em green;
 }
 
 @keyframes shake {
@@ -234,5 +245,23 @@ body {
 
     100% {
         margin-left: 0rem;
+    }
+}
+
+@keyframes jump {
+    0% {
+        margin-top: 0rem;
+    }
+
+    25% {
+        margin-top: 0.5rem;
+    }
+
+    75% {
+        margin-top: -0.5rem;
+    }
+
+    100% {
+        margin-top: 0rem;
     }
 }

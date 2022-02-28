@@ -19,4 +19,3 @@ Just open `app/index.html` in your browser of choice. No other dependencies shou
 - [ ] `X`, `Y`, `Z` tiles are considered "bad" and have a red color or border to match
 - [ ] Vowel tiles are considered "good" and have a pretty color or border to match
 - [ ] Scoring / sharing uses emojis
-- [ ] More feedback / celebration when a word is guessed correctly
