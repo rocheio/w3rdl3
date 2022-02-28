@@ -265,3 +265,14 @@ body {
         margin-top: 0rem;
     }
 }
+
+/* Adjustments for shorter displays (tested on iPhone SE) */
+@media only screen and (max-height: 700px) {
+    #information-container {
+        font-size: 0.8rem;
+        line-height: 1.4rem;
+    }
+    .title {
+        margin: 0.2rem;
+    }
+}
